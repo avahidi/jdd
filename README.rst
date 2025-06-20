@@ -58,23 +58,14 @@ Get the code and compile it yourself::
 Building JDD
 ------------
 
-We use Gradle to build JDD::
+We use Apache Maven to build JDD::
 
     git clone https://bitbucket.org/vahidi/jdd.git
-    
+
     cd jdd
-    ./gradlew build
-    
-    ls build/libs/
+    mvn package
 
-
-
-Or, as JDD has no external dependencies, you can just "javac" source files like this::
-
-    mkdir -p build
-    find src/ -name "*.java"  -exec javac -d build {} \+
-    ls -l build/jdd
-
+    ls target/
 
 
 License

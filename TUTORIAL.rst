@@ -7,8 +7,8 @@ Getting started
 
 To see if everything works correct, enter JDD directory and execute the following commands::
 
-    $ ./gradlew build
-    $ java -cp build/classes/java/main/ jdd.examples.BDDQueens 8
+    $ mvn package
+    $ java -cp target/classes/ jdd.examples.BDDQueens 8
     BDD-Queen	Solutions=92.0	N=8	mem=0.77	time=46
 
 What we just did was to run the BDD version of the "N Queens" example, which is included in the source code.
@@ -240,5 +240,3 @@ Both in turn use the jdd.util.Dot class for operations related to dot.
 You can access the Dot class and modify the way this is handled, for example you can change the output format from PNG to EPS::
 
     Dot.setType( Dot.TYPE_EPS);
-
-

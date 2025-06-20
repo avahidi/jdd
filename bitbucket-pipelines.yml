@@ -5,7 +5,7 @@ pipelines:
     - step:
         script:
           - apt update
-          - apt install -y graphviz
-          - ./gradlew clean
-          - ./gradlew test --info
-          - ./gradlew jar
+          - apt install -y graphviz maven
+          - mvn clean
+          - mvn package
+          - mvn test
