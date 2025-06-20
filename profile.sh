@@ -10,9 +10,9 @@ if [ $# -eq 0 ] ; then
     exit 20
 fi
 
-./gradlew build
+mvn package
 
-export J="java -cp build/classes/java/main -Xmx512M -Xms2M"
+export J="java -cp target/classes -Xmx512M -Xms2M"
 
 for arg in "$@"
 do

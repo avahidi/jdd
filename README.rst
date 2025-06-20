@@ -1,7 +1,7 @@
 JDD
 ===
 
-.. image:: bdd.png
+.. image:: docs/bdd.png
    :align: center
 
 
@@ -20,7 +20,7 @@ It also includes support for Zero-suppressed BDDs.
 Using JDD
 ---------
 
-The `tutorial <TUTORIAL.rst>`_ is probably a good place to start.
+The `tutorial <docs/Tutorial.rst>`_ is probably a good place to start.
 
 The source code contains a number of examples under src/jdd/examples:
 
@@ -30,7 +30,7 @@ The source code contains a number of examples under src/jdd/examples:
 * Milner: Milner's scheduler, from BuDDy...
 
 
-If you encounter any problems make sure to check out the `Frequently Asked Questions <FAQ.rst>`_.
+If you encounter any problems make sure to check out the `Frequently Asked Questions <docs/FAQ.rst>`_.
 
 Getting JDD
 -----------
