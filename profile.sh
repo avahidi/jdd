@@ -10,15 +10,14 @@ if [ $# -eq 0 ] ; then
     exit 20
 fi
 
-mvn package
+mvn clean compile
 
-export J="java -cp target/classes -Xmx512M -Xms2M"
+export J="java -cp target/classes -Xmx1024M -Xms2M"
 
 for arg in "$@"
 do
     case $arg in
-
-		"bdd" )
+	"bdd" )
             $J jdd.examples.BDDQueens 7 7 7 8 8 9 9 10 10 11 11 12 12
             # java -Xmx256M -Xms128M jdd.examples.BDDQueens 13
             $J jdd.examples.Adder 16
@@ -34,22 +33,20 @@ do
             $J jdd.examples.Milner 56
             $J jdd.examples.Milner 64
             $J jdd.examples.Milner 72
-
             ;;
-		"zdd" )
+
+	"zdd" )
             $J jdd.examples.ZDDQueens 7 7 7 8 8 9 9 10 10 11 11 12 12 13 13
             $J jdd.examples.ZDDCSPQueens 7 7 7 8 8 9 9 10 10 11 11 12 12 13 13
         ;;
 
-
         "trace" )
             echo run the traces
-            $J jdd.bdd.debug.BDDTraceSuite data/yangs_traces.zip 10240 > build/jdd_yangs_traces.txt
-            $J jdd.bdd.debug.BDDTraceSuite data/velev_sss.zip 200000 > build/jdd_sss_traces.txt
-            $J jdd.bdd.debug.BDDTraceSuite data/iscas_rest.zip 100000 || echo Failed > build/jdd_ISCAS85_traces.txt
-            $J jdd.bdd.debug.BDDTraceSuite data/iscas_c6288.zip 500000 || echo Failed >> build/jdd_ISCAS85_traces.txt
+            $J jdd.bdd.debug.BDDTraceSuite data/yangs_traces.zip 10240 > target/jdd_yangs_traces.txt
+            $J jdd.bdd.debug.BDDTraceSuite data/velev_sss.zip 200000 > target/jdd_sss_traces.txt
+            $J jdd.bdd.debug.BDDTraceSuite data/iscas_rest.zip 100000 || echo Failed > target/jdd_ISCAS85_traces.txt
+            $J jdd.bdd.debug.BDDTraceSuite data/iscas_c6288.zip 500000 || echo Failed >> target/jdd_ISCAS85_traces.txt
             ;;
-
 
         *)
             echo "Unknown target"

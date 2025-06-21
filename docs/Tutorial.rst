@@ -7,13 +7,13 @@ Getting started
 
 To see if everything works correct, enter JDD directory and execute the following commands::
 
-    $ mvn package
+    $ mvn compile
     $ java -cp target/classes/ jdd.examples.BDDQueens 8
     BDD-Queen	Solutions=92.0	N=8	mem=0.77	time=46
 
 What we just did was to run the BDD version of the "N Queens" example, which is included in the source code.
 
-At this point, you should also see a freshly created JAR file under build/libs/.
+At this point, you should also see a freshly created JAR file under target/.
 Unless you plan to use maven/gradle, you should manually add this file to your project.
 
 BDD tutorial

@@ -42,7 +42,7 @@ Get the code and compile it yourself::
 ... or import it in Gradle::
 
     dependencies {
-        compile 'org.bitbucket.vahidi.jdd:111'
+        compile 'org.bitbucket.vahidi.jdd:112'
     }
 
 ... or maven::
@@ -50,7 +50,7 @@ Get the code and compile it yourself::
     <dependency>
         <groupId>org.bitbucket.vahidi</groupId>
         <artifactId>JDD</artifactId>
-        <version>111</version>
+        <version>112</version>
     </dependency>
 
 
