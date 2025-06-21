@@ -22,7 +22,7 @@ import jdd.util.math.*;
 	/* package */ int [] vars, numbers;
 
 	/* package */ SubDomain(BDDUniverse universe, int size) {
-		Test.checkInequality(size, 0, "Empty subdomain :(");
+		Assert.differs(size, 0, "Empty subdomain :(");
 
 		this.universe = universe;
 		this.size     = size;

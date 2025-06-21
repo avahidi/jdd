@@ -665,7 +665,7 @@ public class BDD extends NodeTable {
 
 	/** this prepares the varset_vec s.t. if it is true, then it is quantified */
 	private void varset(int bdd) {
-		Test.check(bdd > 1, "BAD varset");
+		Assert.check(bdd > 1, "BAD varset");
 
 		// for(int i = 0; i < num_vars; i++) varset_vec[i] = false;
 		for(int i = num_vars; i != 0; ) varset_vec[--i] = false;
@@ -679,7 +679,7 @@ public class BDD extends NodeTable {
 
 	/** same as varset, but this time bdd is not a positive cube. eg: v1 & ~v2, sogn_vec hold the sign */
 	private void varset_signed(int bdd) {
-		Test.check(bdd > 1, "BAD varset");
+		Assert.check(bdd > 1, "BAD varset");
 
 		for(int i = 0; i < num_vars; i++) varset_vec[i] = false;
 		while( bdd > 1) {
@@ -706,7 +706,7 @@ public class BDD extends NodeTable {
 
 	public int exists(int bdd, int cube) {
 		if(cube == 1) return bdd;
-		Test.check(cube != 0, "Empty cube");
+		Assert.check(cube != 0, "Empty cube");
 		quant_conj = false;
 		quant_id = CACHE_EXISTS;
 		quant_cube = cube;
@@ -727,7 +727,7 @@ public class BDD extends NodeTable {
 	 */
 	public int forall(int bdd, int cube) {
 		if(cube == 1) return bdd;
-		Test.check(cube != 0, "Empty cube");
+		Assert.check(cube != 0, "Empty cube");
 		quant_conj = true;
 		quant_id = CACHE_FORALL;
 		quant_cube = cube;
@@ -925,7 +925,7 @@ public class BDD extends NodeTable {
 		int vh = getVar(h);
 		if(perm_var < vl && perm_var < vh) return mk(perm_var, l, h);
 
-		Test.check(perm_var != vl && perm_var != vh, "Replacing to a variable already in the BDD");
+		Assert.check(perm_var != vl && perm_var != vh, "Replacing to a variable already in the BDD");
 
 
 		int x, y, v = vl;

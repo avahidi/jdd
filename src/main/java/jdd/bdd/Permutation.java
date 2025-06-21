@@ -23,8 +23,8 @@ public class Permutation {
 
 	// We assume from and to to be sorted,
 	Permutation(int [] from, int [] to, NodeTable nt) {
-		Test.check( from.length == to.length, "Permutations vectors must have equal length");
-		Test.check( from.length > 0, "non empty pemuration vectors");
+		Assert.equals( from.length,to.length, "Permutations vectors must have equal length");
+		Assert.check( from.length > 0, "non empty pemuration vectors");
 
 		this.from = Array.clone(from);
 		this.to= Array.clone(to);

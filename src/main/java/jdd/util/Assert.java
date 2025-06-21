@@ -4,11 +4,10 @@ package jdd.util;
 import java.util.*;
 
 /**
- * This used to be out own testing framework but now it is
- * just used for runtime assertion
+ * runtime assert code
  */
 
-public class Test {
+public class Assert {
 
 	private static void fail() {
 		Thread.dumpStack();
@@ -26,7 +25,7 @@ public class Test {
 		}
 	}
 
-	public static void checkEquality(int a, int b, String s) {
+	public static void equals(int a, int b, String s) {
 
 		if( a != b) {
 			System.err.print("ASSERTION FAILED: ");
@@ -36,7 +35,7 @@ public class Test {
 		}
 	}
 
-	public static void checkInequality(int a, int b, String s) {
+	public static void differs(int a, int b, String s) {
 
 		if( a == b) {
 			System.err.print("ASSERTION FAILED: ");

@@ -44,7 +44,7 @@ public final class OptimizedCache extends SimpleCache {
 	public OptimizedCache(String name, int size, int members, int bdds) {
 		super(name, size, members, bdds);
 
-		Test.check(bdds <= 3, "BDD members cannot be more than 3 for this type of cache!");
+		Assert.check(bdds <= 3, "BDD members cannot be more than 3 for this type of cache!");
 
 		partial_count = partial_kept= 0;
 		possible_bins_count = 0;
@@ -100,7 +100,7 @@ public final class OptimizedCache extends SimpleCache {
 
 		// sanity check
 		if(bdds < 1 ) {
-			Test.check(false, "Cannot partiall clean a non-bdd cache!");
+			Assert.check(false, "Cannot partiall clean a non-bdd cache!");
 		}
 
 
