@@ -13,7 +13,7 @@ import java.awt.event.*;
 /**
  * This class will report BDD statistics using a minimalistic GUI.
  * Currently only cache stats are reported.
- *
+ * <p>
  * Note: you should not use this class by itself.
  * use ProfiledBDD or ProfiledBDD2 with the Options.verbose flag set to true.
  *
@@ -24,201 +24,221 @@ import java.awt.event.*;
  */
 
 public class BDDDebugFrame
-	extends Frame
-	implements WindowListener, Runnable, BDDDebuger {
+        extends Frame
+        implements WindowListener, Runnable, BDDDebuger {
 
-	private static final int SLEEP_TIME = 1000;
+    private static final int SLEEP_TIME = 1000;
 
-	private NodeTable nodetable;
-	private Thread thread;
-	private boolean stop;
-	private LinkedList list;
-	private Label status;
-	private TextArea statistics;
-
-
-	public BDDDebugFrame(NodeTable nodetable) {
-		super("[BDD Profiler]");
-
-		this.nodetable = nodetable;
-
-		Collection caches = nodetable.addDebugger(this);
-		list = new LinkedList();
-
-		Panel p = new Panel( new GridLayout(3, Math.max(1, caches.size()/3),5,5 ) );
-
-		for (Iterator e = caches.iterator() ; e.hasNext() ;) {
-			CacheBase cb = (CacheBase) e.next();
-			CacheFrame cf = new CacheFrame(cb);
-			p.add( cf);
-			list.add(cf);
-		}
-
-		add(p, BorderLayout.CENTER);
-		add( status = new Label(""), BorderLayout.SOUTH);
-		add( statistics = new TextArea(10,80), BorderLayout.NORTH );
-
-		statistics.setEditable( false);
-		statistics.setVisible( false);
-
-		addWindowListener(this);
-		pack();
-		pack();
-		setVisible(true);
-
-		thread = new Thread(this);
-		thread.start();
+    private final NodeTable nodetable;
+    private final Thread thread;
+    private boolean stop;
+    private final LinkedList list;
+    private final Label status;
+    private final TextArea statistics;
 
 
-	}
+    public BDDDebugFrame(NodeTable nodetable) {
+        super("[BDD Profiler]");
 
-	public void run() {
-		long update = 0;
-		while(!stop) {
-			try {
-				Thread.sleep(SLEEP_TIME);
-				status.setText("Update " + ++update);
+        this.nodetable = nodetable;
 
-				for(Iterator it = list.iterator(); it.hasNext(); ) {
-					CacheFrame cf = (CacheFrame) it.next();
-					cf.repaint();
-				}
-			} catch(Exception ignored) {
-				// also catches NULL pointer expcetion during GC and stuff..
-			}
-		}
+        Collection caches = nodetable.addDebugger(this);
+        list = new LinkedList();
 
+        Panel p = new Panel(new GridLayout(3, Math.max(1, caches.size() / 3), 5, 5));
 
-		status.setText("stopped");
-	}
+        for (Iterator e = caches.iterator(); e.hasNext(); ) {
+            CacheBase cb = (CacheBase) e.next();
+            CacheFrame cf = new CacheFrame(cb);
+            p.add(cf);
+            list.add(cf);
+        }
 
-	public void stop() {
-		if(stop) return; // already stopped
-		stop = true;
+        add(p, BorderLayout.CENTER);
+        add(status = new Label(""), BorderLayout.SOUTH);
+        add(statistics = new TextArea(10, 80), BorderLayout.NORTH);
 
+        statistics.setEditable(false);
+        statistics.setVisible(false);
 
-		// now, show the stats area
-		statistics.setVisible( true);
-		pack();
-		pack();
+        addWindowListener(this);
+        pack();
+        pack();
+        setVisible(true);
 
-		// redirect stats to our window
-		TextAreaTarget taa = new TextAreaTarget(statistics);
-		PrintTarget save = JDDConsole.out;
-		JDDConsole.out = taa;
-		JDDConsole.out.printf("\nPackage statistics:\n==================\n");
-		nodetable.showStats();
-		JDDConsole.out = save;
+        thread = new Thread(this);
+        thread.start();
 
 
-	}
-	// ---------------------------------------------
+    }
 
-	public void windowActivated(WindowEvent e) { }
-	public void windowClosed(WindowEvent e) { }
-	public void windowDeactivated(WindowEvent e) { }
-	public void windowDeiconified(WindowEvent e) { }
-	public void windowIconified(WindowEvent e) { }
-	public void windowOpened(WindowEvent e) { }
-	public void windowClosing(WindowEvent e) {
-		stop = true;
-		setVisible(false);
-		dispose();
-	}
+    public void run() {
+        long update = 0;
+        while (!stop) {
+            try {
+                Thread.sleep(SLEEP_TIME);
+                status.setText("Update " + ++update);
 
-	// ---------------------------------------------------------
-	private class CacheFrame extends Canvas {
-		private CacheBase cb;
-		private MiniGraph g1, g2;
-		public CacheFrame(CacheBase cb) {
-			this.cb = cb;
-			this.g1 = new MiniGraph(95, 0, 100);
-			this.g2 = new MiniGraph(95, 0, 100);
-		}
-		public Dimension getPreferredSize() {
-			return new Dimension(200,90);
-		}
-		public void paint(Graphics g) {
-
-			int h = getHeight();
-			int w = getWidth();
-			g.drawRect(1,1,w-2, h-2);
+                for (Iterator it = list.iterator(); it.hasNext(); ) {
+                    CacheFrame cf = (CacheFrame) it.next();
+                    cf.repaint();
+                }
+            } catch (Exception ignored) {
+                // also catches NULL pointer expcetion during GC and stuff..
+            }
+        }
 
 
-			long accss = cb.getAccessCount();
-			if(accss == 0) {
-					g.drawString(cb.getName() + " unused.", 20, 30 );
-			} else {
-				g.drawString(cb.getName() + ", SIZE=" + cb.getCacheSize() , 5, 12 );
+        status.setText("stopped");
+    }
+
+    public void stop() {
+        if (stop) return; // already stopped
+        stop = true;
 
 
-				g.drawString("Load factor and hitrate:",5,24);
-				g1.add(cb.computeLoadFactor() );
-				g1.draw(g, 3, 28);
+        // now, show the stats area
+        statistics.setVisible(true);
+        pack();
+        pack();
 
-				g2.add(cb.computeHitRate() );
-				g2.draw(g, 103, 28);
-
-				g.drawString("Acss=" + accss +
-					", CLRS=" + cb.getNumberOfClears() + "/" + cb.getNumberOfPartialClears(),
-					5, 85 );
-			}
-		}
-	}
-
-	// ---------------------------------------------------------
-	private class MiniGraph {
-		private static final int GRAPH_HEIGH = 40;
-		private int [] memory;
-		private int current, size, last;
-		private double min, max;
-
-		public MiniGraph(int size, double min, double max){
-			this.size = size;
-			this.current = 0;
-
-			if(min == max) max++; // dont like div by zero
-
-			this.memory = new int[size];
-			this.min = min;
-			this.max = max;
-
-			for(int i = 0; i < size; i++) memory[i] = -1; // fill with zeros
-		}
-		public void add(double v) {
-			// in precent, rounded
-			last = (int)(0.5 + (v - min) * 100.0/ (max - min));
-
-			// in graph height
-			v = (v - min) * GRAPH_HEIGH/ (max - min);
-			current = (current + 1) % size;
-			memory[current] = GRAPH_HEIGH - (int) v;
+        // redirect stats to our window
+        TextAreaTarget taa = new TextAreaTarget(statistics);
+        PrintTarget save = JDDConsole.out;
+        JDDConsole.out = taa;
+        JDDConsole.out.printf("\nPackage statistics:\n==================\n");
+        nodetable.showStats();
+        JDDConsole.out = save;
 
 
+    }
+    // ---------------------------------------------
 
-		}
-		public void draw(Graphics g, int x0, int y0) {
-			g.setColor(Color.lightGray);
-			g.fillRect(x0, y0, size, GRAPH_HEIGH);
-			g.setColor(Color.blue);
+    public void windowActivated(WindowEvent e) {
+    }
 
-			int n = current;
-			x0 += size-1;
-			for(int i = 0; i < size; i++) {
-				int p = memory[n];
-				if(p >= 0 & p <= GRAPH_HEIGH) {
-					g.drawLine(x0,y0+p,x0,y0+p+1);
-				}
-				x0--;
-				n--;
-				if(n == -1) n = size -1;
-			}
-			g.setColor(Color.black);
+    public void windowClosed(WindowEvent e) {
+    }
+
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    public void windowIconified(WindowEvent e) {
+    }
+
+    public void windowOpened(WindowEvent e) {
+    }
+
+    public void windowClosing(WindowEvent e) {
+        stop = true;
+        setVisible(false);
+        dispose();
+    }
+
+    // ---------------------------------------------------------
+    private class CacheFrame extends Canvas {
+        private final CacheBase cb;
+        private final MiniGraph g1;
+        private final MiniGraph g2;
+
+        public CacheFrame(CacheBase cb) {
+            this.cb = cb;
+            this.g1 = new MiniGraph(95, 0, 100);
+            this.g2 = new MiniGraph(95, 0, 100);
+        }
+
+        public Dimension getPreferredSize() {
+            return new Dimension(200, 90);
+        }
+
+        public void paint(Graphics g) {
+
+            int h = getHeight();
+            int w = getWidth();
+            g.drawRect(1, 1, w - 2, h - 2);
 
 
-			// show the last value
-			g.drawString("" + last, x0+5, y0+25);
-		}
+            long accss = cb.getAccessCount();
+            if (accss == 0) {
+                g.drawString(cb.getName() + " unused.", 20, 30);
+            } else {
+                g.drawString(cb.getName() + ", SIZE=" + cb.getCacheSize(), 5, 12);
 
-	}
+
+                g.drawString("Load factor and hitrate:", 5, 24);
+                g1.add(cb.computeLoadFactor());
+                g1.draw(g, 3, 28);
+
+                g2.add(cb.computeHitRate());
+                g2.draw(g, 103, 28);
+
+                g.drawString("Acss=" + accss +
+                                ", CLRS=" + cb.getNumberOfClears() + "/" + cb.getNumberOfPartialClears(),
+                        5, 85);
+            }
+        }
+    }
+
+    // ---------------------------------------------------------
+    private class MiniGraph {
+        private static final int GRAPH_HEIGH = 40;
+        private final int[] memory;
+        private int current;
+        private final int size;
+        private int last;
+        private final double min;
+        private final double max;
+
+        public MiniGraph(int size, double min, double max) {
+            this.size = size;
+            this.current = 0;
+
+            if (min == max) max++; // dont like div by zero
+
+            this.memory = new int[size];
+            this.min = min;
+            this.max = max;
+
+            for (int i = 0; i < size; i++) memory[i] = -1; // fill with zeros
+        }
+
+        public void add(double v) {
+            // in precent, rounded
+            last = (int) (0.5 + (v - min) * 100.0 / (max - min));
+
+            // in graph height
+            v = (v - min) * GRAPH_HEIGH / (max - min);
+            current = (current + 1) % size;
+            memory[current] = GRAPH_HEIGH - (int) v;
+
+
+        }
+
+        public void draw(Graphics g, int x0, int y0) {
+            g.setColor(Color.lightGray);
+            g.fillRect(x0, y0, size, GRAPH_HEIGH);
+            g.setColor(Color.blue);
+
+            int n = current;
+            x0 += size - 1;
+            for (int i = 0; i < size; i++) {
+                int p = memory[n];
+                if (p >= 0 & p <= GRAPH_HEIGH) {
+                    g.drawLine(x0, y0 + p, x0, y0 + p + 1);
+                }
+                x0--;
+                n--;
+                if (n == -1) n = size - 1;
+            }
+            g.setColor(Color.black);
+
+
+            // show the last value
+            g.drawString("" + last, x0 + 5, y0 + 25);
+        }
+
+    }
 }

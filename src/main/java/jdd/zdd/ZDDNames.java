@@ -9,15 +9,26 @@ import jdd.util.*;
  * @see NodeName
  */
 
-public class ZDDNames implements  NodeName {
+public class ZDDNames implements NodeName {
 
-	public String zero() { return "emptyset"; }
-	public String one() { return "base"; }
-	public String zeroShort() { return "{}"; }
-	public String oneShort() { return "{{}}"; }
+    public String zero() {
+        return "emptyset";
+    }
 
-	public String variable(int n) {
-		if(n < 0) return "(none)";
-		return "v" + (n + 1);
-	}
+    public String one() {
+        return "base";
+    }
+
+    public String zeroShort() {
+        return "{}";
+    }
+
+    public String oneShort() {
+        return "{{}}";
+    }
+
+    public String variable(int n) {
+        if (n < 0) return "(none)";
+        return "v" + (n + 1);
+    }
 }

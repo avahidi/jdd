@@ -6,8 +6,9 @@ import jdd.util.math.*;
 
 // helper class for generating random in a runnable
 class RunnableRandom implements Runnable {
-    private int type, count;
-    private java.util.Random rnd;
+    private final int type;
+    private final int count;
+    private final java.util.Random rnd;
 
     public RunnableRandom(int type, int count) {
         this.type = type;
@@ -47,7 +48,7 @@ public class Random {
         final int COUNT = 1000000;
         final int ROUNDS = 20;
 
-        Benchmarking benchmarks[] = new Benchmarking[]{
+        Benchmarking[] benchmarks = new Benchmarking[]{
                 new Benchmarking("MT random", new RunnableRandom(0, COUNT), ROUNDS),
                 new Benchmarking("JRE random", new RunnableRandom(1, COUNT), ROUNDS)
         };
@@ -58,4 +59,3 @@ public class Random {
         run();
     }
 }
-            

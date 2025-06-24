@@ -5,7 +5,8 @@ import jdd.util.*;
 
 // Helper class to make queens a runable
 class RunnableQueens implements Runnable {
-    private int type, size;
+    private final int type;
+    private final int size;
 
     public RunnableQueens(int type, int size) {
         this.type = type;
@@ -13,7 +14,7 @@ class RunnableQueens implements Runnable {
     }
 
     public void run() {
-        switch(type) {
+        switch (type) {
             case 0:
                 new BDDQueens(size);
                 break;
@@ -32,7 +33,7 @@ class RunnableQueens implements Runnable {
 public class Queens {
     public static void run() {
         final int COUNT = 10;
-        Benchmarking benchmarks[] = new Benchmarking[] {
+        Benchmarking[] benchmarks = new Benchmarking[]{
                 new Benchmarking("BDD-11", new RunnableQueens(0, 11), 2, COUNT),
                 new Benchmarking("ZDD-12", new RunnableQueens(1, 12), 2, COUNT),
                 new Benchmarking("ZDDCSP-13", new RunnableQueens(2, 13), 2, COUNT)
@@ -40,7 +41,7 @@ public class Queens {
         Benchmarking.process(benchmarks);
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         run();
     }
 }

@@ -4,8 +4,10 @@ import jdd.util.*;
 
 // helper class for copying in a runnable
 class RunnableIntArrayCopy implements Runnable {
-    private int type, count;
-    private int[] a, b;
+    private final int type;
+    private final int count;
+    private final int[] a;
+    private final int[] b;
 
     public RunnableIntArrayCopy(int type, int count) {
         this.type = type;
@@ -42,7 +44,7 @@ class RunnableIntArrayCopy implements Runnable {
 public class Array {
     public static void run() {
         final int ROUNDS = 100;
-        Benchmarking benchmarks[] = new Benchmarking[]{
+        Benchmarking[] benchmarks = new Benchmarking[]{
                 new Benchmarking("int copy-10", new RunnableIntArrayCopy(0, 10), ROUNDS),
                 new Benchmarking("int copy-system-10", new RunnableIntArrayCopy(1, 10), ROUNDS),
                 new Benchmarking("int copy-1k", new RunnableIntArrayCopy(0, 1000), ROUNDS),
@@ -54,9 +56,7 @@ public class Array {
         Benchmarking.process(benchmarks);
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         run();
     }
 }
-
-

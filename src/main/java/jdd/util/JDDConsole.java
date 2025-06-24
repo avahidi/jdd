@@ -7,5 +7,5 @@ package jdd.util;
  * @see PrintTarget
  */
 public class JDDConsole {
-	public static PrintTarget out = new StdoutTarget();
+    public static PrintTarget out = new StdoutTarget();
 }

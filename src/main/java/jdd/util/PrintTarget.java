@@ -6,12 +6,16 @@ package jdd.util;
  * where all JDD output ends up
  */
 public interface PrintTarget {
-	void printf(String format, Object... args);
+    void printf(String format, Object... args);
 
 
-	@Deprecated void println(String str);
-	@Deprecated void print(String str);
+    @Deprecated
+    void println(String str);
 
-	void print(char c);
-	void flush();
+    @Deprecated
+    void print(String str);
+
+    void print(char c);
+
+    void flush();
 }
