@@ -15,11 +15,8 @@ public class TestArray {
 		assertEquals("new array size OK, even when decreasing", 1, x3.length);
     }
 
-
-	// --- [test bed] ---------------------------------------------
-
    @Test public void testSet() {
-		int [] x2 = new int[]{2,3, 0, 0, 0};		
+		int [] x2 = new int[]{2,3, 0, 0, 0};
 		Array.set(x2, 5);
 		for(int i = 0; i < x2.length; i++) assertEquals( "array set", 5, x2[i]);
 	}

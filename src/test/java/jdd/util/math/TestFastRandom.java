@@ -16,8 +16,8 @@ public class TestFastRandom {
 				mt_c2t.add( FastRandom.mtrand() % MAX );
 				java_c2t.add(rnd.nextInt(MAX));
 			}
-			if(!mt_c2t.isStandardDeviationAcceptable()) mt_c ++;
-			if(!java_c2t.isStandardDeviationAcceptable()) java_c ++;
+			if(!mt_c2t.isStdDevAcceptable()) mt_c ++;
+			if(!java_c2t.isStdDevAcceptable()) java_c ++;
 		}
 
 		// max once in 5 tries

@@ -36,17 +36,7 @@ public final class HashFunctions {
 	 * NOTE: it is slower then the others
 	 */
 	public static final int mix(int i) {
-		// TODO: using a very large prime might be equally good!
 		return i ^(i >>> 8);
-
-
-		/*
-		// my stupid mix: rotate every other bit 8 positions.
-		int i1 = i & 0x55555555;
-		int i2 = i & 0xAAAAAAAA;
-		i2 = (i2 << 8) | (i2 >>> (32 - 8));
-		return i1 | i2;
-		*/
 	}
 
 	/**
@@ -97,15 +87,14 @@ public final class HashFunctions {
 
 	// ----- [ hash functions based on prime multiplication ]------------
 	/**
-	 * these numbers are the prime factors used int the  hash_prime() functions.
-	 * <p>
-	 * The hash functions based on prime numbers are not the best but probably
-	 * the fastest hash functions. There are however cases when they give very
-	 * bad mixing (compare to weak keys in cryptography)
+	 * Prime factors used in the hash_prime() functions.
 	 */
 	// I think these values are stolen  from CUDD:
-	private static final int	DD_P1 = 12582917, DD_P2 = 4256249,
-														DD_P3 = 741457, DD_P4 = 1618033999;
+	private static final int
+			DD_P1 = 12582917,
+			DD_P2 = 4256249,
+			DD_P3 = 741457,
+			DD_P4 = 1618033999;
 
 	/** prime-hash for two elements */
 	public static final int hash_prime(int a, int b) {

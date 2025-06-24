@@ -10,7 +10,9 @@ if [ $# -eq 0 ] ; then
     exit 20
 fi
 
-mvn clean compile
+mvn compile > /dev/null
+date
+git log -1 --oneline || echo "No git?"
 
 export J="java -cp target/classes -Xmx1024M -Xms2M"
 
@@ -38,7 +40,7 @@ do
 	"zdd" )
             $J jdd.examples.ZDDQueens 7 7 7 8 8 9 9 10 10 11 11 12 12 13 13
             $J jdd.examples.ZDDCSPQueens 7 7 7 8 8 9 9 10 10 11 11 12 12 13 13
-        ;;
+            ;;
 
         "trace" )
             echo run the traces
@@ -52,5 +54,5 @@ do
             echo "Unknown target"
             exit 20
             ;;
-   esac
+    esac
 done

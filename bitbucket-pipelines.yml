@@ -4,8 +4,6 @@ pipelines:
   default:
     - step:
         script:
-          - apt update
-          - apt install -y graphviz maven
           - mvn clean
-          - mvn package
+          - mvn compile
           - mvn test

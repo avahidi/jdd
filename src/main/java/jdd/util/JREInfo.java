@@ -1,7 +1,6 @@
 
-package jdd.util.jre;
+package jdd.util;
 
-import jdd.util.*;
 import jdd.util.math.*;
 
 import java.util.*;

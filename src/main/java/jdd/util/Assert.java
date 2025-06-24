@@ -1,13 +1,11 @@
 
 package jdd.util;
 
-import java.util.*;
-
 /**
  * runtime assert code
  */
 
-public class Assert {
+public final class Assert {
 
 	private static void fail() {
 		Thread.dumpStack();
@@ -35,7 +33,7 @@ public class Assert {
 		}
 	}
 
-	public static void differs(int a, int b, String s) {
+	public static void notEquals(int a, int b, String s) {
 
 		if( a == b) {
 			System.err.print("ASSERTION FAILED: ");

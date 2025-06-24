@@ -49,13 +49,13 @@ public class TestHashFunctions {
 
 
 		// check if the random number itself was good enough!
-		assertTrue("FastRandom.mtrand() has an unacceptable standard deviation" , c2t[0].isStandardDeviationAcceptable());
+		assertTrue("FastRandom.mtrand() has an unacceptable standard deviation" , c2t[0].isStdDevAcceptable());
 
 		// check the hash distribution
 		// the error rate we accept. this should actually be 3.0 for true RNG!
 		final double MAX_ERROR = 5.0;
 		for(int i = 5; i < c2t.length; i++) {
-			assertTrue( "Standard Deviation not acceptable for hash " + i, Math.abs(c2t[i].getStandardDeviation()) < MAX_ERROR);
+			assertTrue( "Standard Deviation not acceptable for hash " + i, Math.abs(c2t[i].getStdDev()) < MAX_ERROR);
 		}
 	}
 }

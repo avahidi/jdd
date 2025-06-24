@@ -162,10 +162,10 @@ public class Allocator {
 		JDDConsole.out.printf("\n");
 
 		JDDConsole.out.printf("Total=%s max=%s used=%s free=%s\n",
-			Digits.prettify1024( jdd.util.jre.JREInfo.totalMemory() ),
-			Digits.prettify1024( jdd.util.jre.JREInfo.maxMemory() ),
-			Digits.prettify1024( jdd.util.jre.JREInfo.usedMemory() ),
-			Digits.prettify1024( jdd.util.jre.JREInfo.freeMemory() )
+			Digits.prettify1024( JREInfo.totalMemory() ),
+			Digits.prettify1024( JREInfo.maxMemory() ),
+			Digits.prettify1024( JREInfo.usedMemory() ),
+			Digits.prettify1024( JREInfo.freeMemory() )
 			);
 	}
 	public static void resetStats() {
