@@ -13,16 +13,14 @@ import java.util.*;
 
 /**
  * some common operations involving arrays has been gathered here.
- * The idea is to concenterate all loops in the same class so it can
- * be optimized by the JVM (loop unrolloing, SIMD etc).
+ * The idea is to concentrate all loops in the same class so it can
+ * be optimized by the JVM (loop unrolling, SIMD etc).
  *
  * <p> we used to have all the loops unrolled here, but it turns out that
  * the latest JVMs (1.4.2_02 and above) do a much better job.
  */
 
 public final class Array {
-
-
     // [resize]------------------------------------------------
 
     /**
@@ -35,7 +33,6 @@ public final class Array {
         fast_copy(old, 0, ret, 0, old_size);
         return ret;
     }
-
 
     /**
      * this is an implementation of realloc() for short integers.
@@ -51,20 +48,11 @@ public final class Array {
     // [ copy ] -------------------------------------------------------------
 
     /**
-     * a fast (?) function for copying chunks of an array to another (possibly same) array.
-     * <p>
-     * BEWRAE: stupid System.arraycopy() cant hande overlapping arrays correctly
+     * Copy from one array to another.
+     * The two arrays should not be the same
      */
     public static void copy(int[] from, int[] to, int len, int from_offset, int to_offset) {
-        if (from == to) {
-            if (from_offset < to_offset && (from_offset + len >= to_offset)) {
-                fast_copy_backward(from, from_offset, to, to_offset, len);
-                return;
-            }
-            // XXX: 1. do we need to repeat this when its the other way around?
-            // XXX: 2. how about very small diffrences (like 1 or 2 elements) ???
-        }
-        fast_copy(from, from_offset, to, to_offset, len);
+        System.arraycopy(from, from_offset, to, to_offset, len);
     }
 
     // ----------------------------------------------------------------------------------------
@@ -83,43 +71,6 @@ public final class Array {
         System.arraycopy(y, o1, x, o2, len);
     }
 
-    // ----------------------------------------------------------------------------------------
-
-    /**
-     * unrolled code for copying in an array of integers where the source and destination
-     * may/may not overlap without creating any problems
-     */
-    private static void fast_copy_forward(int[] y, int o1, int[] x, int o2, int len) {
-        if (len >= 0) System.arraycopy(y, o1 + 0, x, o2 + 0, len);
-    }
-
-
-    /**
-     * unrolled code for copying in an array of short integers, where the source and destination
-     * may/may not overlap without creating any problems
-     */
-    private static void fast_copy_forward(short[] y, int o1, short[] x, int o2, int len) {
-        if (len >= 0) System.arraycopy(y, o1 + 0, x, o2 + 0, len);
-    }
-    // -------------------------------------------------------------------------------------------
-
-    // XXX: there is probably an error in this VERY critical function that i cant see right now!
-
-    /**
-     * unrolled code for copying in an array of short integers, where the source and destination
-     * overlaps. to avoid overwriting the yet-to-be-copied members, we have to do the copy in
-     * backward direction.
-     */
-    private static void fast_copy_backward(int[] y, int o1, int[] x, int o2, int len) {
-
-        // while(len-- != 0) x[o2+len] = y[o1+len] ;
-        while (len != 0) {
-            len--;
-            x[o2 + len] = y[o1 + len];
-        }
-    }
-
-
     // [clone ]------------------------------------------------
 
     /**
@@ -132,7 +83,7 @@ public final class Array {
     }
 
     public static boolean[] clone(boolean[] old) {
-        boolean[] ret = new boolean[old.length];
+        boolean[] ret = Allocator.allocateBooleanArray(old.length);
         System.arraycopy(old, 0, ret, 0, old.length);
         return ret;
     }
