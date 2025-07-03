@@ -2,7 +2,6 @@ build
 target
 *~
 TODO
-performance.txt
 *.patch
 
 # vscode

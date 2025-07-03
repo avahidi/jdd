@@ -1,0 +1,6 @@
+# mesa database|github.com/avahidi/mesa|version=1.2
+1751582640|java|-cp target/classes -Xmx512M jdd.examples.BDDQueens 11|10|2.8237822553000003|0.0316958381998755|BDDQueens 6cdb6ab removed Array unused code.
+1751582651|java|-cp target/classes -Xmx512M jdd.examples.ZDDQueens 11|10|0.8786960727|0.0431839340144245|ZDDQueens 6cdb6ab removed Array unused code.
+1751582653|java|-cp target/classes -Xmx512M jdd.examples.ZDDCSPQueens 11|10|0.2313177933|0.017170998780723628|CSPQueens 6cdb6ab removed Array unused code.
+1751582689|java|-cp target/classes -Xmx512M jdd.examples.Adder 1024|10|2.9888807352|0.08318434265158414|Adder 1024 6cdb6ab removed Array unused code.
+1751583254|java|-cp target/classes -Xmx1024M jdd.bdd.debug.BDDTraceSuite data/yangs_traces.zip 10240|10|47.015637463699996|0.046067509383598514|Yangs trace 6cdb6ab removed Array unused code.
