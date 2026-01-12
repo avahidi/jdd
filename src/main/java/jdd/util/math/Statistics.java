@@ -28,4 +28,22 @@ public class Statistics {
         return new double[]{mean, variance, Math.sqrt(variance)};
     }
 
+    /**
+     * Compute Pearson's chi-squared statistic given observed frequencies.
+     *
+     * @param observed array of observed frequencies in each bin
+     * @param totalSamples total number of samples
+     * @return chi-squared value using formula: sum_i ((observed_i - expected_i)^2 / expected_i)
+     */
+    public static double chiSquared(int[] observed, int totalSamples) {
+        int numBins = observed.length;
+        double expected = totalSamples / (double) numBins;
+        double chi2 = 0;
+        for (int count : observed) {
+            double diff = count - expected;
+            chi2 += (diff * diff) / expected;
+        }
+        return chi2;
+    }
+
 }

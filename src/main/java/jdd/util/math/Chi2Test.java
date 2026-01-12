@@ -29,7 +29,7 @@ public class Chi2Test {
     private int samples_have;
     private final int[] bins;
     private boolean has_chi2;    //have we computed the values?
-    private double the_chi2, the_stddev; // when computed, the values are stored here
+    private double the_chi2, the_chi2norm; // when computed, the values are stored here
 
     /**
      * start a chi^2 for the input numbers 0..n-1
@@ -91,28 +91,22 @@ public class Chi2Test {
     }
 
     /**
-     * get the standard deviation. do not call before more() has returned true!
+     * get the normalized chi-squared statistic (not a true standard deviation).
+     * This is a test statistic equal to (chi2 - n) / sqrt(n) used for goodness-of-fit testing.
+     * Do not call before more() has returned false!
      */
     public double getStdDev() {
-        if (!has_chi2) computeChi2(); // std-dev is computed in the same function as chi^2
-        return the_stddev;
+        if (!has_chi2) computeChi2();
+        return the_chi2norm;
     }
 
     /**
-     * chi^2 is computed here
+     * chi^2 is computed here using Pearson's chi-squared formula via Statistics class
      */
     private void computeChi2() {
-        double expected = samples_have / (double) n;
-        // compute chi2 = sum_i (observed_i - expected_i) ^2 / expected_i
-        the_chi2 = 0;
-        for (int i = 0; i < n; i++) {
-            double t = bins[i] - expected;
-            the_chi2 += t * t;
-        }
-        the_chi2 /= expected;
-        the_stddev = (the_chi2 - n) / Math.sqrt(n);
+        the_chi2 = Statistics.chiSquared(bins, samples_have);
+        the_chi2norm = (the_chi2 - n) / Math.sqrt(n);
         has_chi2 = true;
-
     }
 
     // ------------------------------------------------------------------
@@ -134,15 +128,15 @@ public class Chi2Test {
     /**
      * "Acceptable" does not mean good. For example, for hash functions,
      * acceptable means very good. So don't take it as a hard limit, it
-     * sometimes fails so do multiple runs,
+     * sometimes fails so do multiple runs.
      *
-     * @return true if the current standard deviation is acceptable.
+     * @return true if the current normalized chi-squared statistic is acceptable.
      * @see #isChi2Acceptable
      * @see #getStdDev
      */
     public boolean isStdDevAcceptable() {
-        double stddev = getStdDev();
-        return Math.abs(stddev) < 3.5; // should actually be 3.0
+        double chi2norm = getStdDev();
+        return Math.abs(chi2norm) < 3.5; // should actually be 3.0
     }
 
     /**
