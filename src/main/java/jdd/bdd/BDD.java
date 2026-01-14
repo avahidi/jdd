@@ -52,15 +52,18 @@ public class BDD extends NodeTable {
 
 
     /**
-     * create a BDD manager with initially <tt>nodesize</tt> nodes.
+     * create a BDD manager with initially {@code nodesize} nodes.
+     * @param nodesize the initial number of nodes
      */
     public BDD(int nodesize) {
         this(nodesize, Configuration.DEFAULT_BDD_CACHE_SIZE);
     }
 
     /**
-     * create a BDD manager with initially <tt>nodesize</tt> nodes
-     * and <tt>cache_size</tt> cache elements.
+     * create a BDD manager with initially {@code nodesize} nodes
+     * and {@code cache_size} cache elements.
+     * @param nodesize the initial number of nodes
+     * @param cache_size the cache size
      */
     public BDD(int nodesize, int cache_size) {
         super(Prime.prevPrime(nodesize));
@@ -247,7 +250,7 @@ public class BDD extends NodeTable {
 
     /**
      * a cube over a set of variables represented as a mintem. for example the string "11-1"
-     * over four variables will return the cube <tt>v1 AND v3 AND v4</tt>.
+     * over four variables will return the cube {@code v1 AND v3 AND v4}.
      *
      * @see #cube
      */
@@ -302,11 +305,11 @@ public class BDD extends NodeTable {
     // ---------------------------------------------------------------------
 
     /**
-     * this is the <tt>If-Then-Else</tt> BDD function.
+     * this is the {@code If-Then-Else} BDD function.
      * <p>it can be used to (inefficiently) simulate and binary operation.
      * (i think it is described in the "Long" paper).
      *
-     * @return <tt>(f AND then_) OR (NOT f AND else_)</tt>
+     * @return {@code (f AND then_) OR (NOT f AND else_)}
      */
 
     public int ite(int f, int then_, int else_) {
@@ -619,7 +622,7 @@ public class BDD extends NodeTable {
     /**
      * binary BI-IMPLICATION (double implication, equivalence, whatever...).
      *
-     * @return (u1 < - - > u2)
+     * @return (u1 &lt;--&gt; u2)
      * @see #xor
      */
     public int biimp(int u1, int u2) {
@@ -947,7 +950,7 @@ public class BDD extends NodeTable {
 
     /**
      * create a Permutation vector for a given variable permutation.
-     * <p>A permutation is used by <tt>replace</tt> to re-label nodes in a BDD.
+     * <p>A permutation is used by {@code replace} to re-label nodes in a BDD.
      *
      * <p><b>NOTE:</b> the from and to-cubes must not overlap!
      *
@@ -1313,7 +1316,7 @@ public class BDD extends NodeTable {
     }
 
     /**
-     * the operation bdd1 &= bdd2;  is equal to bdd1 = andTo(bdd1, bdd2);
+     * the operation bdd1 &amp;= bdd2;  is equal to bdd1 = andTo(bdd1, bdd2);
      * <p>this operation also handles the ref-counting
      */
     public int andTo(int bdd1, int bdd2) {

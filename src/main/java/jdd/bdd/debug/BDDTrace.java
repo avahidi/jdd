@@ -18,7 +18,7 @@ import java.util.*;
  * <b>print_bdd(variable)</b> print the BDD strcutre in the java console.
  * <b>show_bdd(variable)</b> save an image for this BDD in current directory (default is variable.png).
  * <b>save_bdd(variable)</b> save this BDD in the current directory.
- * <p> If you are using an applet, only <tt>print_bdd</tt> will work.
+ * <p> If you are using an applet, only {@code print_bdd} will work.
  * <br>
  */
 

@@ -25,7 +25,7 @@ public final class Array {
 
     /**
      * this is an implementation of realloc() for integers.
-     * the <tt>old_size</tt> old members are copied to the new array
+     * the {@code old_size} old members are copied to the new array
      */
     public static int[] resize(final int[] old, int old_size, int new_size) {
         int[] ret = Allocator.allocateIntArray(new_size);
@@ -36,7 +36,7 @@ public final class Array {
 
     /**
      * this is an implementation of realloc() for short integers.
-     * the <tt>old_size</tt> old members are copied to the new array
+     * the {@code old_size} old members are copied to the new array
      */
     public static short[] resize(final short[] old, int old_size, int new_size) {
         short[] ret = Allocator.allocateShortArray(new_size);
@@ -74,7 +74,7 @@ public final class Array {
     // [clone ]------------------------------------------------
 
     /**
-     * cone an array of integers and its members
+     * Clone an array of integers and its members
      */
     public static int[] clone(int[] old) {
         int[] ret = Allocator.allocateIntArray(old.length);
@@ -116,7 +116,7 @@ public final class Array {
     // [ count ]------------------------------------------------
 
     /**
-     * count the number of times <tt>val</tt> is seen in the array x
+     * count the number of times {@code val} is seen in the array x
      */
     public static int count(final int[] x, int val) {
         int ret = 0;
@@ -125,7 +125,7 @@ public final class Array {
     }
 
     /**
-     * count the number of times <tt>val</tt> is seen in the array x
+     * count the number of times {@code val} is seen in the array x
      */
     public static int count(final boolean[] x, boolean val) {
         int len = x.length, ret = 0;
@@ -185,7 +185,7 @@ public final class Array {
     }
 
     /**
-     * shuffle the first <tt>len</tt> members of an array
+     * shuffle the first {@code len} members of an array
      */
     public static void shuffle(int[] x, int len) {
         for (int i = 0; i < len; i++) {
@@ -233,7 +233,7 @@ public final class Array {
     /**
      * compare to vectors
      *
-     * @return true of the first <tt>len</tt> members of v1 and v2 are equal
+     * @return true of the first {@code len} members of v1 and v2 are equal
      */
     public static boolean equals(boolean[] v1, boolean[] v2, int len) {
         for (int i = 0; i < len; i++) if (v1[i] != v2[i]) return false;
@@ -243,7 +243,7 @@ public final class Array {
     /**
      * compare to vectors
      *
-     * @return true of the first <tt>len</tt> members of v1 and v2 are equal
+     * @return true of the first {@code len} members of v1 and v2 are equal
      */
     public static boolean equals(short[] v1, short[] v2, int len) {
         for (int i = 0; i < len; i++) if (v1[i] != v2[i]) return false;
@@ -253,7 +253,7 @@ public final class Array {
     /**
      * compare to vectors
      *
-     * @return true of the first <tt>len</tt> members of v1 and v2 are equal
+     * @return true of the first {@code len} members of v1 and v2 are equal
      */
     public static boolean equals(byte[] v1, byte[] v2, int len) {
         for (int i = 0; i < len; i++) if (v1[i] != v2[i]) return false;
@@ -263,7 +263,7 @@ public final class Array {
     /**
      * compare to vectors
      *
-     * @return true of the first <tt>len</tt> members of v1 and v2 are equal
+     * @return true of the first {@code len} members of v1 and v2 are equal
      */
     public static boolean equals(int[] v1, int[] v2, int len) {
         for (int i = 0; i < len; i++) if (v1[i] != v2[i]) return false;

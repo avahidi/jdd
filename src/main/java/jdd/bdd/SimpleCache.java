@@ -121,9 +121,9 @@ public class SimpleCache extends CacheBase {
     }
 
     /**
-     * see if we are allowed to grow this cache.
-     * We grow the cache if (num_grows < MAX_SIMPLECACHE_GROWS) and the hit-rate since the last
-     * grow is larger than MIN_SIMPLECACHE_HITRATE_TO_GROW.
+     * See if we are allowed to grow this cache.
+     * We grow the cache if {@code (num_grows < MAX_SIMPLECACHE_GROWS)} and the hit-rate since the last
+     * grow is larger than {@code MIN_SIMPLECACHE_HITRATE_TO_GROW}.
      */
 
     protected boolean may_grow() {
@@ -202,7 +202,7 @@ public class SimpleCache extends CacheBase {
      */
     public void free_or_grow(NodeTable nt) {
         if (may_grow())
-            grow_and_invalidate_cache(); // no way to partially invalidate, as the size and thus the hashes chagnes
+            grow_and_invalidate_cache(); // no way to partially invalidate, as the size and thus the hashes changes
         else invalidate_cache(nt);
     }
 
@@ -359,7 +359,7 @@ public class SimpleCache extends CacheBase {
 
     // -----------------------------------------------------------------------------
 
-    public double computeLoadFactor() { // just see howmany buckts are in use
+    public double computeLoadFactor() { // just see how many buckets are in use
         if (data == null) return 0; // is growing...
 
         int bins = 0;

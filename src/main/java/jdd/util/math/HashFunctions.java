@@ -30,9 +30,9 @@ public final class HashFunctions {
 
 
     /**
-     * mix the bits in <tt>i</tt> in some clever way.
+     * mix the bits in {@code i} in some clever way.
      *
-     * <p> Use this one when you dont know much about <tt>i</tt>.
+     * <p> Use this one when you dont know much about {@code i}.
      * NOTE: it is slower then the others
      */
     public static int mix(int i) {

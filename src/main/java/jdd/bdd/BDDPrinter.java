@@ -16,7 +16,7 @@ public class BDDPrinter {
     private static char[] set_chars = null;
     private static int set_chars_len;
 
-    private static void helpGC() { // make thins easier for the garbage collector
+    private static void helpGC() { // make things easier for the garbage collector
         BDDPrinter.ps = null;
     }
 

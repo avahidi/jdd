@@ -105,7 +105,7 @@ public class FastRandom {
         y ^= MT_SHIFT_L(y);
 
 
-        // XXX: this is possibly a problem, but we dont want out PRNG to return -3, do we?
+        // XXX: this is possibly a problem, but we dont want our PRNG to return -3, do we?
         return y & 0x7FFFFFFF;
     }
 }

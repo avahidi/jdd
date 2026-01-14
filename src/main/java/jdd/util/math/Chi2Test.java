@@ -11,15 +11,15 @@ import jdd.util.*;
  *
  *
  * <p>
- * assume that you want to test a function f() which returns a number between 0 and N-1:
- * <pre>
+ * Assume that you want to test a function f() which returns a number between 0 and N-1:
+ * <pre>{@code
  * Chi2Test  c2t = new Chi2Test(N);
  *
  * while(c2t.more()) c2t.add( f() );
  *
  * if(c2t.isChi2Acceptable())
  *    System.out.println("The distribution of f() is random enough for me!");
- * <pre>
+ * }</pre>
  */
 
 public class Chi2Test {
@@ -34,10 +34,10 @@ public class Chi2Test {
     /**
      * start a chi^2 for the input numbers 0..n-1
      *
-     * <p> <tt>n</tt> must be larger than 20. don't make it too large unless you
+     * <p> {@code n} must be larger than 20. Don't make it too large unless you
      * have enough memory for it.
      *
-     * <p> Also, if <tt>n</tt> is too small (say bellow 1000), then you might get
+     * <p> Also, if {@code n} is too small (say below 1000), then you might get
      * many false answers so instead consider the majority of multiple runs.
      */
     public Chi2Test(int n) {
@@ -59,10 +59,10 @@ public class Chi2Test {
     }
 
     /**
-     * returns true if it has enough samples to give an accurate answer.
+     * Returns true if it has enough samples to give an accurate answer.
      *
-     * <p>NOTE: most other functions here cannot be called before this functions
-     * starts returning <tt>false</tt>es!
+     * <p>NOTE: most other functions here cannot be called before this function
+     * starts returning {@code false}!
      */
 
     public boolean more() {

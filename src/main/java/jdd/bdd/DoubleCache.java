@@ -150,7 +150,7 @@ public final class DoubleCache extends CacheBase {
      */
     public void free_or_grow(NodeTable nt) {
         if (may_grow())
-            grow_and_invalidate_cache(); // no way to partially invalidate, as the size and thus the hashes chagnes
+            grow_and_invalidate_cache(); // no way to partially invalidate, as the size and thus the hashes changes
         else invalidate_cache(nt);
     }
 
@@ -221,7 +221,7 @@ public final class DoubleCache extends CacheBase {
 
     // -----------------------------------------------------------------------------
 
-    public double computeLoadFactor() { // just see howmany buckts are in use
+    public double computeLoadFactor() { // just see how many buckets are in use
         int bins = 0;
         for (int i = 0; i < cache_size; i++) if (in[i] != -1) bins++;
         return ((bins * 10000) / cache_size) / 100.0;

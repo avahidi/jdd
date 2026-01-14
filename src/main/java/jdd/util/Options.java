@@ -2,7 +2,7 @@
 package jdd.util;
 
 /**
- * simple options, not configuration realted
+ * Simple options, not configuration related
  */
 public class Options {
     /**
@@ -11,7 +11,7 @@ public class Options {
     public static boolean verbose = false;
 
     /**
-     * If a profiling BDD manager is used, the real-time cache statiscts is also shown.
+     * If a profiling BDD manager is used, the real-time cache statistics is also shown.
      */
 
     public static boolean profile_cache = false;

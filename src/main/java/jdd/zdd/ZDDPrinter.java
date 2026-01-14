@@ -19,7 +19,7 @@ public class ZDDPrinter {
     private static boolean had_0, had_1;
     private static NodeName nn;
 
-    private static void helpGC() { // make thins easier for the garbage collector
+    private static void helpGC() { // make things easier for the garbage collector
         nt = null;
         ps = null;
         nn = null;

@@ -9,7 +9,7 @@ import jdd.util.sets.*;
 
 /**
  * Enumerator for the BDD-sets.
- * <p> Notice the very important <tt>free</tt> function!
+ * <p> Notice the very important {@code free} function!
  */
 public class BDDSetEnumeration implements SetEnumeration {
     private final BDDUniverse universe;
@@ -17,7 +17,7 @@ public class BDDSetEnumeration implements SetEnumeration {
     private final int[] vec;
 
     /**
-     * You should not call this constructor directly, <tt>Set</tt> should do that job for you!
+     * You should not call this constructor directly, {@code Set} should do that job for you!
      */
     /* package */ BDDSetEnumeration(BDDUniverse u, int bdd) {
         this.universe = u;

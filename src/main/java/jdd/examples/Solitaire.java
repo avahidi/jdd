@@ -19,8 +19,8 @@ import jdd.util.*;
  * <p>
  * from BuDDy README:
  *
- * <i><pre>
- * "This example tries to calculate the reachable state space of the
+ * <pre>
+ * <i>"This example tries to calculate the reachable state space of the
  * Solitare game. The board is sketched below. At the beginning all
  * places except number 17 has a pin in them. A pin may be moved by
  * jumping over another pin into an empty place. The pin in between is
@@ -47,7 +47,7 @@ import jdd.util.*;
  * ----------------
  * | 13 | 20 | 27 |
  * ----------------
- * </pre></i>
+ * </i></pre>
  */
 
 public class Solitaire extends ProfiledBDD2 {
@@ -147,7 +147,7 @@ public class Solitaire extends ProfiledBDD2 {
     // -----------------------------------------------------------
 
     /**
-     * setup the model before using i
+     * Setup the model before using it
      */
     public void setup() {
         // bdd_setcacheratio(64);

@@ -28,7 +28,7 @@ public class Fibonacci {
     private static DoubleCache dc;
 
     /**
-     * recursively (!!!) compute the fibonacci number for <tt>n</tt>
+     * recursively (!!!) compute the fibonacci number for {@code n}
      */
     public static double fibonacci(int n) {
         if (n < 0) return -1; // INVALID n!

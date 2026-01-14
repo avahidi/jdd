@@ -179,7 +179,7 @@ public class BDDIO {
         // a map from saved to current manager names
         Map map = new HashMap();
 
-        // thes are always the same
+        // these are always the same
         Integer zero = Integer.valueOf(0);
         Integer one = Integer.valueOf(1);
         map.put(zero, zero);
@@ -212,7 +212,7 @@ public class BDDIO {
                 map.put(Integer.valueOf(name), Integer.valueOf(ret));
             }
 
-            is.close(); // we are dont with it
+            is.close(); // we are done with it
 
             Integer new_target = (Integer) map.get(Integer.valueOf(target));
             if (new_target == null) throw new IOException("Corrupt BDD file");
@@ -240,16 +240,16 @@ public class BDDIO {
      * Save a BDD to a file. use the format BuDDy uses.
      * <p>If you save a BDD in this format, you <u>can not</u> load it into JDD again.
      * You can however load the saved BDD in BuDDy using the function<br>
-     * <tt>int      bdd_fnload(char *, BDD *);</tt>
+     * {@code int      bdd_fnload(char *, BDD *);}
      *
      * <p>For the sake of clearness, we suggest that you the *.bdd extension for the
      * JDD format and the *.buddy extension for the BuDDy format.
      *
      * <p>The BuDDy format is best bescribed by this comment from bddio.c in buddy:
      * <pre>
-     * Loads a BDD from a file into the BDD pointed to by <tt>r</tt>.
-     * The file can either be the file <tt>ifile</tt> which must be opened
-     * for reading or the file named <tt>fname</tt> which will be opened
+     * Loads a BDD from a file into the BDD pointed to by {@code r}.
+     * The file can either be the file {@code ifile} which must be opened
+     * for reading or the file named {@code fname} which will be opened
      * automatically for reading.
      *
      * The input file format consists of integers arranged in the following

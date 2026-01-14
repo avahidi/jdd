@@ -43,7 +43,7 @@ public class Flags {
     }
 
     /**
-     * copy FROM the <tt>f</tt> object
+     * copy FROM the {@code f} object
      */
     public void copyFlags(final Flags f) {
         this.flags = f.flags;
@@ -52,21 +52,21 @@ public class Flags {
     // --------------------------------
 
     /**
-     * set the flag <tt>flag</tt>
+     * set the flag {@code flag}
      */
     private void set(int flag) {
         flags |= (1 << flag);
     }
 
     /**
-     * clear/reset the flag <tt>flag</tt>
+     * clear/reset the flag {@code flag}
      */
     private void reset(int flag) {
         flags &= ~(1 << flag);
     }
 
     /**
-     * set the flag <tt>flag</tt> to <tt>set</tt>
+     * set the flag {@code flag} to {@code set}
      */
     public void set(int f, boolean set) {
         if (set) set(f);
@@ -74,7 +74,7 @@ public class Flags {
     }
 
     /**
-     * get the value of <tt>flag</tt>
+     * get the value of {@code flag}
      */
     public boolean get(int flag) {
         return (flags & (1 << flag)) != 0;

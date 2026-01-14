@@ -126,6 +126,7 @@ public class NodeTable {
     /**
      * this function MUST be called when a paramater that may change the tree dpeth
      * (such as the number of variables in a BDD) has changed!
+     * @param n the new tree depth
      */
     protected void tree_depth_changed(int n) {
         // mark stack is the stack used for recursive tree marking
@@ -237,7 +238,7 @@ public class NodeTable {
     }
 
     /**
-     * this functions marks the nodes in use AND cleans the <tt>prev</tt> link.
+     * this functions marks the nodes in use AND cleans the {@code prev} link.
      * we had a version that used t_list as stack and avoided recursive calls
      * with mark_tree. there are some problems with that but we might switch back to it for better efficiency
      */
@@ -378,6 +379,8 @@ public class NodeTable {
 
     /**
      * for debugging: install a debugger. returns the set of caches.
+     * @param d the debugger to add
+     * @return the collection of caches
      */
     public Collection addDebugger(BDDDebuger d) {
         debugers.add(d);
@@ -431,6 +434,7 @@ public class NodeTable {
     /**
      * increase the reference-count of this BDD once
      *
+     * @param bdd the BDD to increase reference count for
      * @return bdd
      */
     public final int ref(int bdd) {
@@ -447,6 +451,7 @@ public class NodeTable {
     /**
      * decrease the reference-count of this BDD once.
      *
+     * @param bdd the BDD to decrease reference count for
      * @return bdd
      */
     public final int deref(int bdd) {
@@ -466,6 +471,7 @@ public class NodeTable {
      * set the reference-count of this BDD to max.
      * after that, the ref-count cant be changed and the node cannot be garbage collected anymore.
      * <p>DO NOT USE, unless you know what you are doing (note: you probably don't).
+     * @param bdd the BDD to saturate
      */
     public final void saturate(int bdd) {
         setRef(bdd, MAX_REFCOUNT);
@@ -490,6 +496,8 @@ public class NodeTable {
 
     /**
      * get the number of references to this BDD.
+     * @param bdd the BDD to check
+     * @return the reference count
      */
     public final short getRef(int bdd) {
         if (t_ref[bdd] == -1) return 0;
@@ -525,6 +533,8 @@ public class NodeTable {
 
     /**
      * return the associated variable. works even when the table is marked
+     * @param bdd the BDD node
+     * @return the variable number
      */
     protected final int getVarUnmasked(int bdd) {
         return t_nodes[OFFSET_VAR + NODE_WIDTH * bdd] & NODE_UNMARK;
@@ -532,6 +542,8 @@ public class NodeTable {
 
     /**
      * returns true if this bdd is a valid bdd
+     * @param bdd the BDD to check
+     * @return true if valid, false otherwise
      */
     public final boolean isValid(int bdd) {
         return t_nodes[OFFSET_VAR + NODE_WIDTH * bdd] != -1;
@@ -539,6 +551,7 @@ public class NodeTable {
 
     /**
      * make the node invalid
+     * @param bdd the BDD node to invalidate
      */
     protected final void invalidate(int bdd) {
         t_nodes[OFFSET_VAR + NODE_WIDTH * bdd] = -1;
@@ -561,7 +574,12 @@ public class NodeTable {
     }
 
     /**
-     * returns true of the bdd <tt>bdd</tt> is the same as (var,low,high)
+     * returns true of the bdd {@code bdd} is the same as (var,low,high)
+     * @param bdd the BDD to match
+     * @param var the variable
+     * @param low the low branch
+     * @param high the high branch
+     * @return true if the BDD matches
      */
     protected final boolean match_table(final int bdd, final int var, final int low, final int high) {
         // WAS: return getVar(bdd) == var && getLow(bdd) == low && getHigh(bdd) == high;
@@ -591,7 +609,7 @@ public class NodeTable {
     }
 
     /**
-     * a more clever way to set all the prev members up to <tt>upto</tt> to 0
+     * a more clever way to set all the prev members up to {@code upto} to 0
      */
     private final void clearPrev(int from, int upto) {
         from = from * LIST_WIDTH + OFFSET_PREV;
@@ -605,7 +623,7 @@ public class NodeTable {
     }
 
     /**
-     * put <tt>a</tt> before <tt>b</tt> in the linked list
+     * put {@code a} before {@code b} in the linked list
      */
     private final void connect_list(int a, int b) {
         int o1 = a * LIST_WIDTH;

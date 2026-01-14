@@ -8,7 +8,7 @@ import java.io.*;
 // vtx mp fig svg svgz dia dot canon plain plain-ext xdot
 
 /**
- * simple Dot-class that organizes calls to AT&T DOT
+ * simple Dot-class that organizes calls to AT&amp;T DOT
  */
 
 public class Dot {

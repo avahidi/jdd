@@ -132,17 +132,13 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <!-- TODO: correct javadoc issues, upgrade this to 3.4.1 and remove the configuration below -->
-          <version>2.10.2</version>
+          <version>3.4.1</version>
           <executions>
             <execution>
               <id>attach-javadocs</id>
               <goals>
                 <goal>jar</goal>
               </goals>
-              <configuration>
-                <additionalparam>-Xdoclint:none</additionalparam>
-              </configuration>
             </execution>
           </executions>
         </plugin>
