@@ -113,8 +113,6 @@ public final class BDDHelper {
      * @param vars list of variables to use
      * @param num the number to encode
      * @return bdd encoding of number using these variables
-     *
-     * @see #encodeAsBooleans
      */
     public static final int encode(BDD mgr, int[] vars, int num) {
         int ret = 1;

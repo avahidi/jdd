@@ -279,8 +279,6 @@ public class BDD extends NodeTable {
     /**
      * returns an unary minterm based on a vector of boolean assignments.
      * <p>for example <i>minterm([true, false]) </i> will return <i>NOT v1 and v2</i>.
-     *
-     * @see #minterm
      */
     public final int minterm_(boolean[] v) {
         int last = 1, len = Math.min(v.length, num_vars);
@@ -1208,7 +1206,7 @@ public class BDD extends NodeTable {
     // ---- [oneSat ] -----------------------------------
 
     /**
-     * @Deprecated
+     * @deprecated
      * <p> Use {@link BDDHelper#oneSat} instead.
      */
     public int oneSat(int bdd) {
@@ -1216,7 +1214,7 @@ public class BDD extends NodeTable {
     }
 
     /**
-     * @Deprecated
+     * @deprecated
      * <p> Use {@link BDDHelper#oneSat} instead.
      */
     public int[] oneSat(int bdd, int[] buffer) {
