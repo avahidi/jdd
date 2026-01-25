@@ -191,12 +191,12 @@ public class Milner extends ProfiledBDD2 {
 
                 if (verbose) {
                     milner.showStats();
-                    JDDConsole.out.println("Simulation of " + n + " milner cyclers");
-                    JDDConsole.out.println("SatCount(R) = " + milner.satCount(R));
-                    JDDConsole.out.println("Calc        = " + (n * Math.pow(2, 1 + n) * Math.pow(2, 3 * n)));
-                    JDDConsole.out.println("Time: " + (c2 - c1) + " [ms]");
+                    JDDConsole.out.printf("Simulation of %d milner cyclers\n", n);
+                    JDDConsole.out.printf("SatCount(R) = %f\n", milner.satCount(R));
+                    JDDConsole.out.printf("Calc        = %f\n", n * Math.pow(2, 1 + n) * Math.pow(2, 3 * n));
+                    JDDConsole.out.printf("Time: %d [ms]\n", c2 - c1);
                 } else {
-                    JDDConsole.out.println("Milner\tN=" + n + "\ttime=" + (c2 - c1));
+                    JDDConsole.out.printf("Milner\tN=%d\ttime=%d\n", n, c2 - c1);
                 }
 
                 milner.cleanup();
@@ -204,6 +204,6 @@ public class Milner extends ProfiledBDD2 {
             }
         }
 
-        JDDConsole.out.println("Usage: java jdd.examples.Milner [-v] <number of cyclers>");
+        JDDConsole.out.printf("Usage: java jdd.examples.Milner [-v] <number of cyclers>\n");
     }
 }

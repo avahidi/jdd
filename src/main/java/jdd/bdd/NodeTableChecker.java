@@ -27,7 +27,7 @@ public class NodeTableChecker {
 
     public void showTable(boolean complete) {
         final int size = nt.debug_table_size();
-        JDDConsole.out.println(complete ? "Node-table (complete):" : "Node-table:");
+        JDDConsole.out.printf("%s\n", complete ? "Node-table (complete):" : "Node-table:");
         for (int i = 0; i < size; i++) {
             if (complete || nt.isValid(i))
                 show_tuple(i);

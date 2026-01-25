@@ -59,9 +59,9 @@ public class Permutation {
 
     // ----------------------------------------------------------------
     public void show() {
-        JDDConsole.out.println("-----------------------------");
+        JDDConsole.out.printf("-----------------------------\n");
         for (int i = first; i <= last; i++)
-            JDDConsole.out.println(" " + i + " --> " + perm[i]);
+            JDDConsole.out.printf(" %d --> %d\n", i, perm[i]);
     }
 
     /**

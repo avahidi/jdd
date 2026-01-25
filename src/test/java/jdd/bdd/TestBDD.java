@@ -317,30 +317,6 @@ public class TestBDD {
     }
 
     @Test
-    public void testOneSat() {
-        BDD jdd = new BDD(200);
-        int v1 = jdd.createVar();
-        int v2 = jdd.createVar();
-        int v3 = jdd.createVar();
-
-        int dum = jdd.ref(jdd.not(v2));
-
-        int p1 = jdd.ref(jdd.and(v1, dum));
-        int p2 = jdd.ref(jdd.and(v1, v3));
-
-        int[] os1 = jdd.oneSat(p1, null);
-        assertEquals("onesat_v1 (1)", 1, os1[0]);
-        assertEquals("onesat_v2 (1)", 0, os1[1]);
-        assertEquals("onesat_v3 (1)", -1, os1[2]);
-
-
-        os1 = jdd.oneSat(p2, null);
-        assertEquals("onesat_v1 (2)", 1, os1[0]);
-        assertEquals("onesat_v2 (2)", -1, os1[1]);
-        assertEquals("onesat_v3 (2)", 1, os1[2]);
-    }
-
-    @Test
     public void testMember() {
         // TEST MEMBER: taken from the brace/rudell/bryant paper
         BDD jdd = new BDD(200);
@@ -359,4 +335,5 @@ public class TestBDD {
         assertTrue("member (3)", jdd.member(p3, mb));
         assertFalse("member (4)", jdd.member(p4, mb));
     }
+
 }

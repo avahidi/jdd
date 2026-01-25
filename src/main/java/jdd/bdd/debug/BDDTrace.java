@@ -68,11 +68,11 @@ public class BDDTrace {
         public String text;
 
         public void execute() {
-            if (verbose) JDDConsole.out.println(text);
+            if (verbose) JDDConsole.out.printf("%s\n", text);
         }
 
         public void show_code() {
-            JDDConsole.out.println("//" + text);
+            JDDConsole.out.printf("//%s\n", text);
         }
     }
 
@@ -89,7 +89,7 @@ public class BDDTrace {
         }
 
         public void show_code() {
-            JDDConsole.out.println("BDDIO.saveBuDDy(bdd, " + v.bdd + ",\"" + v.name + ".buddy\");");
+            JDDConsole.out.printf("BDDIO.saveBuDDy(bdd, %d,\"%s.buddy\");\n", v.bdd, v.name);
         }
     }
 
@@ -100,14 +100,14 @@ public class BDDTrace {
         public void execute() {
             if (graph) bdd.printDot(v.name, v.bdd);
             else {
-                JDDConsole.out.println(v.name + ":");
+                JDDConsole.out.printf("%s:\n", v.name);
                 bdd.printSet(v.bdd);
             }
         }
 
         public void show_code() {
-            if (graph) JDDConsole.out.println(v.name + ".printDot();");
-            else JDDConsole.out.println(v.name + ".printSet();");
+            if (graph) JDDConsole.out.printf("%s.printDot();\n", v.name);
+            else JDDConsole.out.printf("%s.printSet();\n", v.name);
         }
     }
 
@@ -186,10 +186,10 @@ public class BDDTrace {
             if (size != -1) {
                 int size2 = node_count(ret);
                 if (size != size2) {
-                    JDDConsole.out.println("\n*************************************************************************");
-                    JDDConsole.out.println("Size comparison failed after " + op + " ( wanted " + size + ", got " + size2 + ")");
+                    JDDConsole.out.printf("\n*************************************************************************\n");
+                    JDDConsole.out.printf("Size comparison failed after %s ( wanted %d, got %d)\n", op, size, size2);
                     show();
-                    JDDConsole.out.println("\n");
+                    JDDConsole.out.printf("\n\n");
                     throw new IOException("Size comparison failed");
 
                 }
@@ -325,7 +325,7 @@ public class BDDTrace {
             String code;
             Enumeration e = operands.elements();
             TracedVariable v = (TracedVariable) e.nextElement();
-            if (op.equals("=")) JDDConsole.out.println("BDD " + ret.name + " = " + v.name + ";");
+            if (op.equals("=")) JDDConsole.out.printf("BDD %s = %s;\n", ret.name, v.name);
             else {
                 JDDConsole.out.print("BDD " + ret.name + " = " + v.name + "." + op);
                 JDDConsole.out.print("(");
@@ -341,11 +341,11 @@ public class BDDTrace {
                 }
                 if (!mode2) for (int j = 1; j < i; j++) JDDConsole.out.print(")");
 
-                JDDConsole.out.println(");");
+                JDDConsole.out.printf(");\n");
             }
 
             if (op.equals("ite"))
-                JDDConsole.out.println("System.out.println(\"" + ret.name + " ==> \"+" + ret.name + ".nodeCount());");
+                JDDConsole.out.printf("System.out.println(\"%s ==> \"+%s.nodeCount());\n", ret.name, ret.name);
         }
 
     }
@@ -432,11 +432,11 @@ public class BDDTrace {
 
     // -----------------------------------------------------
     private void show_code() {
-        JDDConsole.out.println("import org.sf.javabdd.*;\n" +
+        JDDConsole.out.printf("import org.sf.javabdd.*;\n" +
                 "public class Test {\n" +
                 "public static void main(String[] args) {\n");
 
-        JDDConsole.out.println("\n\n" +
+        JDDConsole.out.printf("\n\n" +
                 "BDDFactory B = BDDFactory.init(" + nodes + ",100);\n" +
                 "B.setVarNum(" + variables.size() + ");\nBDD ");
 
@@ -449,14 +449,14 @@ public class BDDTrace {
                 i++;
             }
         }
-        JDDConsole.out.println(";");
+        JDDConsole.out.printf(";\n");
 
         for (Enumeration e = operations.elements(); e.hasMoreElements(); ) {
             TracedOperation v = (TracedOperation) e.nextElement();
             v.show_code();
         }
 
-        JDDConsole.out.println("}\n}\n");
+        JDDConsole.out.printf("}\n}\n\n");
     }
 
     // -----------------------------------------------------
@@ -465,7 +465,7 @@ public class BDDTrace {
         nodes = (int) Math.min(MAX_NODES, nodes * (1 + Math.log(1 + vars)));
 
         JDDConsole.out.printf("\n");
-        JDDConsole.out.println("loading " + module + " from " + filename + " (" + nodes + " nodes, " + vars + " vars)");
+        JDDConsole.out.printf("loading %s from %s (%d nodes, %d vars)\n", module, filename, nodes, vars);
 
         // bdd = new ProfiledBDD(nodes, cache);
         bdd = new ProfiledBDD2(nodes, cache);
@@ -548,14 +548,14 @@ public class BDDTrace {
 
     private void show_results() {
         time = System.currentTimeMillis() - time;
-        JDDConsole.out.println(op_count + " operations performed, total execution time: " + time + " [ms]");
+        JDDConsole.out.printf("%d operations performed, total execution time: %d [ms]\n", op_count, time);
 
         if (Options.verbose) {
             if (last_assignment != null) {
                 int size = node_count(last_assignment);
-                JDDConsole.out.println("Last assginment: " + last_assignment.name + ", " + size + " nodes.");
+                JDDConsole.out.printf("Last assginment: %s, %d nodes.\n", last_assignment.name, size);
                 // if(size < 20) bdd.printSet(last_assignment.bdd);
-                JDDConsole.out.println("\n");
+                JDDConsole.out.printf("\n\n");
             }
             bdd.showStats();
         }
@@ -654,7 +654,7 @@ public class BDDTrace {
                 need(";");
                 createSaveOperation(v);
             } else if (ret.equals("check_point_for_force_reordering")) {
-                JDDConsole.out.println("NOTE: ignoring variable-reordering request");
+                JDDConsole.out.printf("NOTE: ignoring variable-reordering request\n");
                 skip_eol();
             } else {
 
@@ -912,9 +912,9 @@ public class BDDTrace {
             if (args.length == 2) {
                 new BDDTrace(args[0], Integer.parseInt(args[1]));
             } else if (args.length == 1) new BDDTrace(args[0]);
-            else JDDConsole.out.println("Usage:  java jdd.bdd.BDDTrace file.trace [initial node-base]");
+            else JDDConsole.out.printf("Usage:  java jdd.bdd.BDDTrace file.trace [initial node-base]\n");
         } catch (IOException exx) {
-            JDDConsole.out.println("FAILED: " + exx.getMessage());
+            JDDConsole.out.printf("FAILED: %s\n", exx.getMessage());
             exx.printStackTrace();
             System.exit(20);
         }

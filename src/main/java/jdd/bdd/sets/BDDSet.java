@@ -154,7 +154,7 @@ public class BDDSet implements Set {
     public void show(String name) {
         JDDConsole.out.print(name + " = ");
         if (bdd == 0) {
-            JDDConsole.out.println("empty set");
+            JDDConsole.out.printf("empty set\n");
             return;
         }
 
@@ -171,7 +171,7 @@ public class BDDSet implements Set {
             } else JDDConsole.out.print(" ");
         }
         if (j != 0) JDDConsole.out.printf("\n");
-        JDDConsole.out.println("\r}");
+        JDDConsole.out.printf("\r}\n");
         se.free();
     }
 

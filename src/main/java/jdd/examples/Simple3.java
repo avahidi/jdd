@@ -34,10 +34,10 @@ public class Simple3 {
 
 
         // 1. lets build the members of the set
-        int cat = bdd.ref(bdd.minterm("00"));
-        int dog = bdd.ref(bdd.minterm("01"));
-        int man = bdd.ref(bdd.minterm("10"));
-        int mouse = bdd.ref(bdd.minterm("11"));
+        int cat = bdd.ref(BDDHelper.encode(bdd, null, "00"));
+        int dog = bdd.ref(BDDHelper.encode(bdd, null, "01"));
+        int man = bdd.ref(BDDHelper.encode(bdd, null, "10"));
+        int mouse = bdd.ref(BDDHelper.encode(bdd, null, "11"));
 
 
         // 2. Now something like the set S = { cat, mouse } is represented as a BDD
@@ -90,10 +90,10 @@ public class Simple3 {
         //    the items in v0' x v1' just as we did for v0 x v1 earlier.
         //
         //    After that, we can create our Enemy and Friend functions...
-        int catp = bdd.ref(bdd.minterm("--00"));
-        int dogp = bdd.ref(bdd.minterm("--01"));
-        int manp = bdd.ref(bdd.minterm("--10"));
-        int mousep = bdd.ref(bdd.minterm("--11"));
+        int catp = bdd.ref(BDDHelper.encode(bdd, null, "--00"));
+        int dogp = bdd.ref(BDDHelper.encode(bdd, null,  "--01"));
+        int manp = bdd.ref(BDDHelper.encode(bdd, null,  "--10"));
+        int mousep = bdd.ref(BDDHelper.encode(bdd, null, "--11"));
 
         int friend = bdd.ref(bdd.and(man, dogp));
         int enemy = bdd.ref(bdd.and(mouse, catp));

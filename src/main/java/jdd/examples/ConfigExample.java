@@ -40,55 +40,55 @@ public class ConfigExample {
         adder.cleanup();
 
 
-        JDDConsole.out.println("**** TIME = " + time + "ms , MEMORY = " + memory + "KB ****\n");
+        JDDConsole.out.printf("**** TIME = %dms , MEMORY = %dKB ****\n\n", time, memory);
     }
 
     public static void main(String[] args) {
 
 
-        JDDConsole.out.println("ConfigExample.java:");
-        JDDConsole.out.println("We will now profile Adder(" + N + ") under different configurations");
+        JDDConsole.out.printf("ConfigExample.java:\n");
+        JDDConsole.out.printf("We will now profile Adder(%d) under different configurations\n", N);
 
 
         // NOTE:
         // every time you change something, make sure to change it back when you are done!
 
-        JDDConsole.out.println("\nDefault configuration");
+        JDDConsole.out.printf("\nDefault configuration\n");
         test();
 
-        JDDConsole.out.println("\nSmaller OP cache");
+        JDDConsole.out.printf("\nSmaller OP cache\n");
         Configuration.bddOpcacheDiv = 8;
         test();
         Configuration.bddOpcacheDiv = Configuration.DEFAULT_BDD_OPCACHE_DIV;
 
 
-        JDDConsole.out.println("\nToo small OP cache");
+        JDDConsole.out.printf("\nToo small OP cache\n");
         Configuration.bddOpcacheDiv = 1000;
         test();
         Configuration.bddOpcacheDiv = Configuration.DEFAULT_BDD_OPCACHE_DIV;
 
-        JDDConsole.out.println("\nFaster nodetable grow:");
+        JDDConsole.out.printf("\nFaster nodetable grow:\n");
         Configuration.nodetableGrowMin = Configuration.nodetableGrowMax = 500000;
         test();
         Configuration.nodetableGrowMin = Configuration.DEFAULT_NODETABLE_GROW_MIN;
         Configuration.nodetableGrowMax = Configuration.DEFAULT_NODETABLE_GROW_MAX;
 
 
-        JDDConsole.out.println("\nComputation caches are NOT allowed to grow:");
+        JDDConsole.out.printf("\nComputation caches are NOT allowed to grow:\n");
         Configuration.maxSimplecacheGrows = 0;
         test();
         Configuration.maxSimplecacheGrows = Configuration.DEFAULT_MAX_SIMPLECACHE_GROWS;
 
 
-        JDDConsole.out.println("\nComputation caches are allowed to grow, but only under very high hitrate:");
+        JDDConsole.out.printf("\nComputation caches are allowed to grow, but only under very high hitrate:\n");
         Configuration.minSimplecacheHitrateToGrow = 85;
         test();
         Configuration.minSimplecacheHitrateToGrow = Configuration.DEFAULT_MIN_SIMPLECACHE_HITRATE_TO_GROW;
 
 
         // we are done
-        JDDConsole.out.println("\n\nThe results wasn't what you were expecting huh?");
-        JDDConsole.out.println("Hope this example has learned you the importance of BDD tuning!");
+        JDDConsole.out.printf("\n\nThe results wasn't what you were expecting huh?\n");
+        JDDConsole.out.printf("Hope this example has learned you the importance of BDD tuning!\n");
         JDDConsole.out.printf("\n");
 
     }

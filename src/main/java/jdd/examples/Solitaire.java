@@ -238,8 +238,8 @@ public class Solitaire extends ProfiledBDD2 {
             deref(tmp);
         }
 
-        JDDConsole.out.println("Transition relation: " + nodeCount(T) + " nodes, " +
-                satCount(T) + " distinct transitions."); // XXX: this differs from orifiganl solitare.cxx!
+        JDDConsole.out.printf("Transition relation: %d nodes, %f distinct transitions.\n",
+            nodeCount(T), satCount(T)); // XXX: this differs from orifiganl solitare.cxx!
     }
 
 
@@ -274,8 +274,7 @@ public class Solitaire extends ProfiledBDD2 {
             deref(tmp2);
 
 
-            JDDConsole.out.println(cou + ": " + nodeCount(reachable) + " nodes, " +
-                    (satCount(reachable) / dummyStateNum) + " states.");
+            JDDConsole.out.printf("%d: %d nodes, %f states.\n", cou, nodeCount(reachable), satCount(reachable) / dummyStateNum);
             // showStats(); if(cou == 10) break;
             cou++;
 
@@ -313,7 +312,6 @@ void iterate_front(void)
     public static void main(String[] args) {
         Options.verbose = true; // see GC calls??
 
-
         long c1 = System.currentTimeMillis();
         Solitaire s = new Solitaire();
 
@@ -322,6 +320,6 @@ void iterate_front(void)
 
         s.showStats();
         long c2 = System.currentTimeMillis();
-        JDDConsole.out.println("Time: " + (c2 - c1) + " [ms]");
+        JDDConsole.out.printf("Time: %d [ls]\n", c2 - c1);
     }
 }

@@ -185,7 +185,7 @@ public class SimpleCache extends CacheBase {
         data = Allocator.allocateIntArray(cache_size * width);
 
         if (Options.verbose)
-            JDDConsole.out.println("Cache " + getName() + " grown to " + cache_size + " entries");
+            JDDConsole.out.printf("Cache %s grown to %d entries\n", getName(), cache_size);
 
         // clear the cache
         invalidate_cache();
@@ -414,14 +414,14 @@ public class SimpleCache extends CacheBase {
         for (int i = 0; i < cache_size; i++) {
             if (isValid(i)) {
                 if (!nt.isValid(getOut(i))) {
-                    JDDConsole.out.println("Invalied cache output entry");
+                    JDDConsole.out.printf("Invalied cache output entry\n");
                     show_tuple(i);
                     return false;
                 }
 
                 for (int m = 0; m < bdds; m++) {
                     if (!nt.isValid(getIn(i, m + 1))) {
-                        JDDConsole.out.println("Invalied cache member " + m + " entry");
+                        JDDConsole.out.printf("Invalied cache member %d entry\n", m);
                         show_tuple(i);
                         return false;
                     }

@@ -1,4 +1,7 @@
 #!/bin/sh
+
+mvn clean compile
+
 echo "Recording execution time with mesa. This will take some time, go get some coffee..."
 echo "See https://github.com/avahidi/mesa"
 

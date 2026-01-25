@@ -116,7 +116,7 @@ public class TraceApp extends Frame implements ActionListener, WindowListener {
         try {
             BDDTrace bt = new BDDTrace("(memory)", sbis, nodes);
         } catch (IOException exx) {
-            JDDConsole.out.println("ERROR: " + exx);
+            JDDConsole.out.printf("ERROR: %s\n", exx);
         }
     }
 
@@ -137,7 +137,7 @@ public class TraceApp extends Frame implements ActionListener, WindowListener {
                 return;
             }
         } catch (Exception ex) {
-            JDDConsole.out.println("ERROR: " + ex);
+            JDDConsole.out.printf("ERROR: %s\n", ex);
         }
     }
 

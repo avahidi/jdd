@@ -65,7 +65,7 @@ public class QueensApp extends Frame implements WindowListener, ActionListener {
     }
 
     private Queens getSolver(int n) {
-        JDDConsole.out.println("Loading solver '" + cSolver.getSelectedItem() + "'...");
+        JDDConsole.out.printf("Loading solver '%s'...\n", cSolver.getSelectedItem());
 
         int type = cSolver.getSelectedIndex();
         switch (type) {
@@ -86,9 +86,9 @@ public class QueensApp extends Frame implements WindowListener, ActionListener {
             Queens q = getSolver(n);
             boolean[] sol = q.getOneSolution();
             board.set(sol);
-            JDDConsole.out.println(q.numberOfSolutions() + " solutions /" + q.getTime() + "ms");
+            JDDConsole.out.printf("%d solutions /%d ms\n", q.numberOfSolutions(), q.getTime());
         } catch (Exception ex) {
-            JDDConsole.out.println("ERROR: " + ex);
+            JDDConsole.out.printf("ERROR: %s\n", ex);
             ex.printStackTrace();
         }
     }

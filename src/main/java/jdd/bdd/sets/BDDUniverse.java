@@ -35,7 +35,7 @@ import jdd.util.math.*;
 
         all = 0;
         for (int i = 0; i < size; i++) {
-            numbers[i] = BDDUtil.numberToBDD(universe, vars, i);
+            numbers[i] = BDDHelper.encode(universe, vars, i);
 
             // add to the care-set
             int tmp = universe.ref(universe.or(all, numbers[i]));
@@ -130,7 +130,7 @@ public class BDDUniverse extends BDD implements Universe {
         for (int i = 0; i < num_subdomains; i++) {
             if (assignments[i] != -1) {
                 // System.out.println("\nat index "  + index + ", automata " + i);
-                BDDUtil.numberToMinterm(assignments[i], int_bits[i], index, minterm);
+                BDDHelper.encodeBooleans(assignments[i], int_bits[i], index, minterm);
                 index += int_bits[i];
             } else {
                 // FIXME: ERROR inside performance critical code!!!!!

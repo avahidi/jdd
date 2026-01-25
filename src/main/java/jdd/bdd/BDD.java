@@ -42,7 +42,6 @@ public class BDD extends NodeTable {
     // quantification stuff
     protected boolean[] varset_vec;    // used internally by quant/relprod and some other functions
     protected boolean[] sign_vec;    // used internally by restrict functions for polarity
-    protected int[] oneSat_buffer; // used internally by oneSat
     private boolean[] support_buffer; // used by support()
     protected int varset_last, quant_id, quant_cube, restrict_careset;
     protected boolean quant_conj;
@@ -111,7 +110,6 @@ public class BDD extends NodeTable {
     public void cleanup() {
         super.cleanup();
         sign_vec = varset_vec = null;
-        oneSat_buffer = null;
         quant_cache = null;
         ite_cache = null;
         not_cache = null;
@@ -145,6 +143,19 @@ public class BDD extends NodeTable {
      */
     public int numberOfVariables() {
         return num_vars;
+    }
+
+    /**
+     * Helper function to return all variable sin case we somehow lost them :)
+     * Note that this function is not very efficient.
+     * @return an array of all currently allocated variables
+     */
+    public int[] getAllVariables() {
+        int []all = new int[num_vars];
+        for(int i = 0; i < all.length; i++) {
+            all[i] = mk(i, 0, 1); // no need to ref, refcount is already saturated
+        }
+        return all;
     }
 
     /**
@@ -271,32 +282,12 @@ public class BDD extends NodeTable {
      *
      * @see #minterm
      */
-    public final int minterm(boolean[] v) {
+    public final int minterm_(boolean[] v) {
         int last = 1, len = Math.min(v.length, num_vars);
         for (int i = 0; i < len; i++) {
             int var = len - i - 1;
             nstack.push(last);
             last = (v[var] ? mk(var, 0, last) : mk(var, last, 0));
-            nstack.pop();
-        }
-        return last;
-    }
-
-
-    /**
-     * <p>returns a unary minterm based on a vector of boolean assignments.
-     * for example <i>minterm([true, false]) </i> will return <i>NOT v1 and v2</i>.
-     *
-     * @see #minterm
-     */
-
-    public final int minterm(String s) {
-        int len = s.length(), last = 1;
-        for (int i = 0; i < len; i++) {
-            int var = len - i - 1;
-            nstack.push(last);
-            last = ((s.charAt(var) == '1') ? mk(var, 0, last) :
-                    ((s.charAt(var) == '0') ? mk(var, last, 0) : last));
             nstack.pop();
         }
         return last;
@@ -1213,55 +1204,25 @@ public class BDD extends NodeTable {
         return 1 + quasiReducedNodeCount(getLow(bdd)) + quasiReducedNodeCount(getHigh(bdd));
     }
 
+
     // ---- [oneSat ] -----------------------------------
 
     /**
-     * return a satisfying assignment for this BDD as a unary cube.
-     * bdd may not be the constant ONE or ZERO.
+     * @Deprecated
+     * <p> Use {@link BDDHelper#oneSat} instead.
      */
     public int oneSat(int bdd) {
-        if (bdd < 2) return bdd;
-
-        if (getLow(bdd) == 0) {
-            int high = nstack.push(oneSat(getHigh(bdd)));
-            int u = mk(getVar(bdd), 0, high);
-            nstack.pop();
-            return u;
-        } else {
-            int low = nstack.push(oneSat(getLow(bdd)));
-            int u = mk(getVar(bdd), low, 0);
-            nstack.pop();
-            return u;
-        }
+        return BDDHelper.oneSatBDD(this, bdd);
     }
-    // ---- [oneSat, vector version] -----------------------------------
 
     /**
-     * oneSat(bdd, buffer) returns an int vector
-     * x where x[i] is 0/1 or -1 for neg cofactor/pos cofactor and dont care
-     * <p>if buffer is null, a new vector is created otherwise  buffer is used an returned
+     * @Deprecated
+     * <p> Use {@link BDDHelper#oneSat} instead.
      */
     public int[] oneSat(int bdd, int[] buffer) {
-        if (buffer == null) buffer = new int[num_vars];
-
-        oneSat_buffer = buffer;
-        Array.set(buffer, -1);
-        oneSat_rec(bdd);
-        oneSat_buffer = null; // help gc :(
-        return buffer;
+        return BDDHelper.oneSat(this, bdd, buffer, BDDHelper.DONT_CARE);
     }
 
-    protected void oneSat_rec(int bdd) {
-        if (bdd < 2) return;
-
-        if (getLow(bdd) == 0) {
-            oneSat_buffer[getVar(bdd)] = 1;
-            oneSat_rec(getHigh(bdd));
-        } else {
-            oneSat_buffer[getVar(bdd)] = 0;
-            oneSat_rec(getLow(bdd));
-        }
-    }
     // ---- [ support ] ---------------------------------------------
 
     /**
@@ -1344,7 +1305,6 @@ public class BDD extends NodeTable {
 
         // small buffers, but still
         if (varset_vec != null) ret += varset_vec.length * 4L;
-        if (oneSat_buffer != null) ret += oneSat_buffer.length * 4L;
         if (support_buffer != null) ret += support_buffer.length;         // we assume one byte per boolean :(
 
         // caches eat a lot of memory
@@ -1362,8 +1322,6 @@ public class BDD extends NodeTable {
             ret += tmp.getMemoryUsage();
             tmp = tmp.next;
         }
-
-
         return ret;
     }
 

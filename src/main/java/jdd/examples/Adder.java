@@ -120,7 +120,7 @@ public class Adder
             deref(resv);
 
             if (fail) {
-                JDDConsole.out.println("resv = " + resv + ", res = " + res);
+                JDDConsole.out.printf("resv = %d, res = %d\n", resv, res);
                 return false;
             }
             res >>>= 1;
@@ -168,12 +168,12 @@ public class Adder
                 if (test) {
                     // uncomment these lines to test the adder, beware that it is very slow...
                     JDDConsole.out.print("Testing...");
-                    JDDConsole.out.println(adder.test_adder() ? " PASSED" : "FAILED!");
+                    JDDConsole.out.printf("%s\n", adder.test_adder() ? " PASSED" : "FAILED!");
                 }
 
 
                 long c2 = System.currentTimeMillis();
-                JDDConsole.out.println("\ttime=" + (c2 - c1));
+                JDDConsole.out.printf("\ttime=%d\n", c2 - c1);
 
                 if (verbose) adder.showStats();
                 adder.cleanup();
@@ -182,9 +182,9 @@ public class Adder
             }
         }
 
-        JDDConsole.out.println("Usage: java jdd.examples.Adder [-t] [-d] [-v] <number of bits>");
-        JDDConsole.out.println("\t -t    test adder (slow)");
-        JDDConsole.out.println("\t -d    dump BDD size");
-        JDDConsole.out.println("\t -v    be verbose");
+        JDDConsole.out.printf("Usage: java jdd.examples.Adder [-t] [-d] [-v] <number of bits>\n");
+        JDDConsole.out.printf("\t -t    test adder (slow)\n");
+        JDDConsole.out.printf("\t -d    dump BDD size\n");
+        JDDConsole.out.printf("\t -v    be verbose\n");
     }
 }

@@ -68,7 +68,7 @@ public class BDDQueens extends BDD implements Queens {
         memory_usage = getMemoryUsage();
         if (queen == 0) solvec = null; // no solutions
 
-        int[] tmp = oneSat(queen, null);
+        int[] tmp = BDDHelper.oneSat(this, queen, null, BDDHelper.ONE);
         solvec = new boolean[tmp.length];
         for (int x = 0; x < solvec.length; x++) solvec[x] = (tmp[x] == 1);
         deref(queen);
