@@ -762,8 +762,7 @@ public class BDD extends NodeTable {
             varset_last = getVar(bdd);
             varset_vec[varset_last] = true;
             sign_vec[varset_last] = (getLow(bdd) == 0);
-            bdd = getHigh(bdd);
-
+            bdd = sign_vec[varset_last] ? getHigh(bdd) : getLow(bdd);
         }
     }
 

@@ -317,6 +317,59 @@ public class TestBDD {
     }
 
     @Test
+    public void testRestrict() {
+        // Check that restrict works with both direct and negated literals in care-set cube
+        BDD jdd = new BDD(1000);
+
+        int a = jdd.createVar();
+        int b = jdd.createVar();
+        int c = jdd.createVar();
+        int d = jdd.createVar();
+
+        int na = jdd.ref(jdd.not(a));
+        int nb = jdd.ref(jdd.not(b));
+
+        // f = a' * b * c  +  a * b * d
+        int f = jdd.ref(jdd.or(
+                jdd.and(jdd.and(na, b), c),
+                jdd.and(jdd.and(a, b), d)));
+
+        // care-set = a * b
+        int carePP = jdd.ref(jdd.and(a, b));
+        // f restricted to a=1, b=1 is d
+        assertEquals("restrict on all-positive cube", d, jdd.restrict(f, carePP));
+
+        // care-set = a' * b
+        int careNP = jdd.ref(jdd.and(na, b));
+        // f restricted to a=0, b=1 is c
+        assertEquals("restrict on negative-then-positive cube", c, jdd.restrict(f, careNP));
+
+        // care-set = a * b'
+        int carePN = jdd.ref(jdd.and(a, nb));
+        // f restricted to a=1, b=0 is 0
+        assertEquals("restrict on positive-then-negative cube", 0, jdd.restrict(f, carePN));
+
+        // care-set = a' * b'
+        int careNN = jdd.ref(jdd.and(na, nb));
+        // f restricted to a=0, b=0 is identically 0
+        assertEquals("restrict on all-negative cube", 0, jdd.restrict(f, careNN));
+
+        // care-set = a' * c
+        int careSkip = jdd.ref(jdd.and(na, c));
+        // f restricted to a=0, c=1 is b
+        assertEquals("restrict on negative literal followed by a skipped variable", b, jdd.restrict(f, careSkip));
+
+        jdd.deref(careSkip);
+        jdd.deref(carePN);
+        jdd.deref(careNP);
+        jdd.deref(carePP);
+        jdd.deref(careNN);
+        jdd.deref(f);
+        jdd.deref(nb);
+        jdd.deref(na);
+    }
+
+    @Test
     public void testMember() {
         // TEST MEMBER: taken from the brace/rudell/bryant paper
         BDD jdd = new BDD(200);
