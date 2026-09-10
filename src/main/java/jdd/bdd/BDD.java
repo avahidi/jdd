@@ -24,14 +24,12 @@ public class BDD extends NodeTable {
      */
     protected static final int CACHE_AND = 0, CACHE_OR = 1, CACHE_XOR = 2, CACHE_BIIMP = 3;
     protected static final int CACHE_IMP = 4, CACHE_NAND = 5, CACHE_NOR = 6, CACHE_RESTRICT = 7;
+    protected static final int CACHE_SIMPLIFY = 8;
 
     /**
      * for the quant cache
      */
     protected static final int CACHE_EXISTS = 0, CACHE_FORALL = 1;
-
-    // /** yet unused */
-    // protected static final int CACHE_SIMPLIFY = 1;
 
 
     protected int num_vars, last_sat_vars;
@@ -763,7 +761,6 @@ public class BDD extends NodeTable {
             varset_vec[varset_last] = true;
             sign_vec[varset_last] = (getLow(bdd) == 0);
             bdd = getHigh(bdd);
-
         }
     }
 
@@ -1078,8 +1075,6 @@ public class BDD extends NodeTable {
     /**
      * The BDD simplification operation. Work like the restrict operation.
      * <p>Check out Andersens BDD lecture notes for detailed information on this one.
-     * <p>
-     * XXX: we have no cache for it yet!
      *
      * @see #restrict
      */
@@ -1087,36 +1082,40 @@ public class BDD extends NodeTable {
         if (d == 0) return 0;
         if (u < 2) return u;
 
+        if (op_cache.lookup(d, u, CACHE_SIMPLIFY)) return op_cache.answer;
+        int hash = op_cache.hash_value;
+
+        int ret;
         if (d == 1) {
             int l = nstack.push(simplify(d, getLow(u)));
             int h = nstack.push(simplify(d, getHigh(u)));
-            h = mk(getVar(u), l, h);
+            ret = mk(getVar(u), l, h);
             nstack.drop(2);
-            return h;
         } else if (getVar(d) == getVar(u)) {
-            if (getLow(d) == 0) return simplify(getHigh(d), getHigh(u));
-            if (getHigh(d) == 0) return simplify(getLow(d), getLow(u));
-
-            int l = nstack.push(simplify(getLow(d), getLow(u)));
-            int h = nstack.push(simplify(getHigh(d), getHigh(u)));
-
-            h = mk(getVar(u), l, h);
-            nstack.drop(2);
-            return h;
+            if (getLow(d) == 0) {
+                ret = simplify(getHigh(d), getHigh(u));
+            } else if (getHigh(d) == 0) {
+                ret = simplify(getLow(d), getLow(u));
+            } else {
+                int l = nstack.push(simplify(getLow(d), getLow(u)));
+                int h = nstack.push(simplify(getHigh(d), getHigh(u)));
+                ret = mk(getVar(u), l, h);
+                nstack.drop(2);
+            }
         } else if (getVar(d) < getVar(u)) {
             int l = nstack.push(simplify(getLow(d), u));
             int h = nstack.push(simplify(getHigh(d), u));
-            h = mk(getVar(d), l, h);
+            ret = mk(getVar(d), l, h);
             nstack.drop(2);
-            return h;
         } else {
             int l = nstack.push(simplify(d, getLow(u)));
             int h = nstack.push(simplify(d, getHigh(u)));
-
-            h = mk(getVar(u), l, h);
+            ret = mk(getVar(u), l, h);
             nstack.drop(2);
-            return h;
         }
+
+        op_cache.insert(hash, d, u, CACHE_SIMPLIFY, ret);
+        return ret;
     }
 
     // ----[ SAT stuff ] ------------------------

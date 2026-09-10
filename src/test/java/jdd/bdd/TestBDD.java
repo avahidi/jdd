@@ -317,6 +317,59 @@ public class TestBDD {
     }
 
     @Test
+    public void testSimplify() {
+        // Check simplify function
+        BDD jdd = new BDD(1000);
+
+        int a = jdd.createVar();
+        int b = jdd.createVar();
+        int c = jdd.createVar();
+        int d = jdd.createVar();
+
+        int na = jdd.ref(jdd.not(a));
+        int nb = jdd.ref(jdd.not(b));
+
+        // f = a' * b * c  +  a * b * d
+        int f = jdd.ref(jdd.or(
+                jdd.and(jdd.and(na, b), c),
+                jdd.and(jdd.and(a, b), d)));
+
+        // care-set = a * b
+        int carePP = jdd.ref(jdd.and(a, b));
+        // f simplified on a*b=1 is d
+        assertEquals("simplify on all-positive cube", d, jdd.simplify(carePP, f));
+
+        // care-set = a' * b
+        int careNP = jdd.ref(jdd.and(na, b));
+        // f simplified on a'*b=1 is c
+        assertEquals("simplify on negative-then-positive cube", c, jdd.simplify(careNP, f));
+
+        // care-set = a * b'
+        int carePN = jdd.ref(jdd.and(a, nb));
+        // f simplified on a*b'=1 is 0
+        assertEquals("simplify on positive-then-negative cube", 0, jdd.simplify(carePN, f));
+
+        // care-set = a' * b'
+        int careNN = jdd.ref(jdd.and(na, nb));
+        // f simplified on a'*b'=1 is 0
+        assertEquals("simplify on all-negative cube", 0, jdd.simplify(careNN, f));
+
+        // care-set = a * b' + a' * b 
+        int careXor = jdd.ref(jdd.or(jdd.and(a, nb), jdd.and(na, b)));
+        // f simplified to a^x=1 is a'*c
+        assertEquals("simplify on xor", jdd.and(na, c), jdd.simplify(careXor, f));
+
+        jdd.deref(careXor);
+        jdd.deref(carePN);
+        jdd.deref(careNP);
+        jdd.deref(carePP);
+        jdd.deref(careNN);
+        jdd.deref(f);
+        jdd.deref(nb);
+        jdd.deref(na);
+    }
+
+    @Test
     public void testMember() {
         // TEST MEMBER: taken from the brace/rudell/bryant paper
         BDD jdd = new BDD(200);
