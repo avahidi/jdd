@@ -130,12 +130,12 @@ This increases complexity and seeing CUDD performance it might not be worth it.
 Sure, but if it is too much work, we might send you the source code and ask you to implement it yourself :)
 
 
-Common Problems (stuff that usually fill my mailbox)
+Common Problems
 ----------------------------------------------------
 
 **How can I submit a bug?**
 
-Use the `issue tracker <https://bitbucket.org/vahidi/jdd/issues>`_...
+The `Bitbucket issue tracker <https://bitbucket.org/vahidi/jdd/issues>`_ is preferred if you have access. Otherwise try the `github mirror issue tracker <https://github.com/avahidi/jdd/issues>`_ :)
 
 **I have an example of a problem on which JDD performs very poor, what should I do?**
 
@@ -144,12 +144,11 @@ Send us the example and we will look at it.
 
 **I can't get the DOT output working!**
 
-Dot is a third-party utility provided by AT&T research. Make sure you first download it and install it from http://www.research.att.com/sw/tools/graphviz/. If you still get errors like this:
-::
+You need to install the graphviz dot utility and ensure it is accessible from your path.
 
-  java.io.IOException: CreateProcess: ...
+On Debian & co all you need to do is::
 
-Then probably dot is not in your path.
+  sudo apt install graphviz
 
 **I want the source DOT file, but all I get is its picture...**
 

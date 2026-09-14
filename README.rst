@@ -16,7 +16,6 @@ It also includes support for Zero-suppressed BDDs.
 
 
 
-
 Using JDD
 ---------
 
@@ -42,7 +41,7 @@ Get the code and compile it yourself::
 ... or import it in Gradle::
 
     dependencies {
-        compile 'org.bitbucket.vahidi.jdd:113'
+        compile 'org.bitbucket.vahidi.jdd:114'
     }
 
 ... or maven::
@@ -50,7 +49,7 @@ Get the code and compile it yourself::
     <dependency>
         <groupId>org.bitbucket.vahidi</groupId>
         <artifactId>JDD</artifactId>
-        <version>113</version>
+        <version>114</version>
     </dependency>
 
 

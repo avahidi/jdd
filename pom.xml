@@ -6,7 +6,7 @@
 
     <groupId>org.bitbucket.vahidi</groupId>
     <artifactId>jdd</artifactId>
-    <version>113</version>
+    <version>114</version>
 
     <name>JDD</name>
     <description>JDD is a Java library for working with Binary Decision Diagrams (BDDs) and Zero-suppressed BDDs (Z-BDDs)</description>

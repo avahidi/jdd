@@ -9,3 +9,9 @@
 1769359187|java|-cp target/classes -Xmx512M jdd.examples.ZDDCSPQueens 13|10|3.0316121381|0.03730535469378453|56b7a02 moved oneSat to BDDHelper
 1769359204|java|-cp target/classes -Xmx512M jdd.examples.Adder 1024|5|2.830975547|0.025334260337539334|56b7a02 moved oneSat to BDDHelper
 1769359345|java|-cp target/classes -Xmx512M jdd.bdd.debug.BDDTraceSuite data/yangs_traces.zip 10240|2|46.902383911|0.011922353999999302|56b7a02 moved oneSat to BDDHelper
+1789426244|java|-cp target/classes -Xmx512M jdd.examples.BDDQueens 11|10|2.9386418513000003|0.06971379335935421|restrict bugfix + simplify cache
+1789426333|java|-cp target/classes -Xmx512M jdd.examples.ZDDQueens 12|10|7.441408620999999|0.11011012652011871|restrict bugfix + simplify cache
+1789426369|java|-cp target/classes -Xmx512M jdd.examples.ZDDCSPQueens 13|10|3.0397019757|0.03816898784365063|restrict bugfix + simplify cache
+1789426387|java|-cp target/classes -Xmx512M jdd.examples.Adder 1024|5|2.8714373814|0.07840751137494446|restrict bugfix + simplify cache
+1789426527|java|-cp target/classes -Xmx512M jdd.bdd.debug.BDDTraceSuite data/yangs_traces.zip 10240|2|46.904522672|0.039528097999998124|restrict bugfix + simplify cache
+
