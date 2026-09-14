@@ -5,31 +5,30 @@ JDD
    :align: center
 
 
-JDD is a decision diagram library written in pure java. It supports
+JDD is a decision diagram library written in pure Java. It supports
 `Binary Decision Diagrams <https://en.wikipedia.org/wiki/Binary_decision_diagram>`_ (BDD) and
 `Zero-suppressed Decision Diagram <https://en.wikipedia.org/wiki/Zero-suppressed_decision_diagram>`_ (Z-BDD or just ZDD).
 
 Binary Decision Diagrams (BDDs) are used in formal verification, CSP, optimisation and more.
-To work with BDDs, you need a BDD library. JDD is my java implementation of a decision
+To work with BDDs, you need a BDD library. JDD is a Java implementation of a decision
 diagram library inspired by BuDDy (a BDD package written in C).
 It also includes support for Zero-suppressed BDDs.
-
 
 
 Using JDD
 ---------
 
-The `tutorial <docs/Tutorial.rst>`_ is probably a good place to start.
+A good place to start is the `tutorial <docs/Tutorial.rst>`_.
 
 The source code contains a number of examples under src/jdd/examples:
 
-* BDDQueens, ZDDQueens and ZDDCSPQueens: N-Queens problem solved with BDDs, Z-BDDs and Z-BDD CSP operators
+* BDDQueens, ZDDQueens and ZDDCSPQueens: the N-Queens problem solved with BDDs, Z-BDDs and Z-BDD CSP operators
 * Solitaire: The solitaire example from the BuDDy distribution
 * Adder: Yet another example stolen from the BuDDy distribution
 * Milner: Milner's scheduler, from BuDDy...
 
 
-If you encounter any problems make sure to check out the `Frequently Asked Questions <docs/FAQ.rst>`_.
+If you encounter any problems, make sure to check out the `Frequently Asked Questions <docs/FAQ.rst>`_.
 
 Getting JDD
 -----------
@@ -53,7 +52,6 @@ Get the code and compile it yourself::
     </dependency>
 
 
-
 Building JDD
 ------------
 
@@ -72,11 +70,11 @@ License
 
 JDD is free software under the zlib license. You may use it free of charge in research or even commercial projects.
 
-For academic publications, feel free to use a bibtex entry similar to this for citation::
+For academic publications, feel free to use a BibTeX entry similar to this for citation::
 
     @MISC{jdd,
         author = {Arash Vahidi},
         title = {JDD: a pure Java BDD and Z-BDD library},
         howpublished = "\url{https://bitbucket.org/vahidi/jdd}",
-        year = 2003
+        year = "2003"
     }
