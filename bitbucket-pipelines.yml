@@ -5,6 +5,7 @@ pipelines:
     - step:
         script:
           - apt-get update && apt-get install -y graphviz
+          - which dot || echo "No dot found??"
           - mvn clean
           - mvn compile
           - mvn test
